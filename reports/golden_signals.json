@@ -1,0 +1,379 @@
+{
+  "generated_at": "2026-09-28T17:12:38+00:00",
+  "generator": "scripts/golden_signals.py",
+  "sources": {
+    "spans": "traces/phoenix_spans.parquet",
+    "eval": "reports/eval_report.json"
+  },
+  "span_classes": {
+    "thinking": [
+      "LLM"
+    ],
+    "acting": [
+      "AGENT",
+      "CHAIN",
+      "GUARDRAIL"
+    ],
+    "tool": [
+      "TOOL",
+      "RETRIEVER"
+    ]
+  },
+  "latency": {
+    "thinking": {
+      "count": 0,
+      "p50_ms": null,
+      "p95_ms": null,
+      "mean_ms": null
+    },
+    "acting": {
+      "count": 361,
+      "p50_ms": 5.8,
+      "p95_ms": 256.4,
+      "mean_ms": 34.7
+    },
+    "tool": {
+      "count": 64,
+      "p50_ms": 19.3,
+      "p95_ms": 52.8,
+      "mean_ms": 24.7
+    },
+    "tool_by_name": {
+      "check_offer_eligibility": {
+        "count": 6,
+        "p50_ms": 19.3,
+        "p95_ms": 19.9,
+        "mean_ms": 18.9
+      },
+      "create_escalation_ticket": {
+        "count": 2,
+        "p50_ms": 16.4,
+        "p95_ms": 16.6,
+        "mean_ms": 16.4
+      },
+      "get_account": {
+        "count": 11,
+        "p50_ms": 27.1,
+        "p95_ms": 34.9,
+        "mean_ms": 28.2
+      },
+      "get_billing_history": {
+        "count": 2,
+        "p50_ms": 46.9,
+        "p95_ms": 48.5,
+        "mean_ms": 46.9
+      },
+      "manage_memory": {
+        "count": 21,
+        "p50_ms": 17.9,
+        "p95_ms": 23.3,
+        "mean_ms": 18.2
+      },
+      "policy_rag": {
+        "count": 11,
+        "p50_ms": 49.4,
+        "p95_ms": 57.4,
+        "mean_ms": 49.3
+      }
+    },
+    "end_to_end_turn": {
+      "count": 15,
+      "p50_ms": 291.8,
+      "p95_ms": 424.5,
+      "mean_ms": 272.8
+    },
+    "end_to_end_turn_warm": {
+      "count": 14,
+      "p50_ms": 281.0,
+      "p95_ms": 417.9,
+      "mean_ms": 262.0
+    },
+    "cold_start_first_turn_ms": 423.7
+  },
+  "traffic": {
+    "runs": 14,
+    "turns": 15,
+    "spans": 478,
+    "llm_calls": 0,
+    "tool_calls": 53,
+    "spans_by_kind": {
+      "CHAIN": 263,
+      "AGENT": 68,
+      "UNKNOWN": 53,
+      "TOOL": 53,
+      "GUARDRAIL": 30,
+      "RETRIEVER": 11
+    }
+  },
+  "errors": {
+    "error_spans": 0,
+    "error_span_rate": 0.0,
+    "tool_calls_not_ok": 0,
+    "tool_status_counts": {
+      "ok": 53
+    },
+    "tool_status_source": "tool_middleware.* spans (logging middleware)"
+  },
+  "tokens": {
+    "prompt": 0,
+    "completion": 0,
+    "total": 0,
+    "llm_spans": 0,
+    "per_llm_call_mean": null
+  },
+  "cost": {
+    "currency": "USD",
+    "total": 0.0,
+    "per_run_mean": 0.0,
+    "models_seen": [],
+    "pricing_basis": {},
+    "price_table_usd_per_1m_tokens": {
+      "gemini-3.8-flash": {
+        "input": 0.75,
+        "output": 3.75
+      },
+      "gemini-3.7-flash": {
+        "input": 0.75,
+        "output": 3.75
+      },
+      "gemini-3.6-flash": {
+        "input": 0.75,
+        "output": 3.75
+      },
+      "gemini-3.5-flash": {
+        "input": 1.5,
+        "output": 9.0
+      },
+      "gemini-3.5-flash-lite": {
+        "input": 0.3,
+        "output": 2.5
+      },
+      "gemini-3.1-flash-lite": {
+        "input": 0.25,
+        "output": 1.5
+      },
+      "gemini-2.5-flash": {
+        "input": 0.3,
+        "output": 2.5
+      },
+      "gemini-2.5-flash-lite": {
+        "input": 0.1,
+        "output": 0.4
+      }
+    },
+    "price_source": "https://ai.google.dev/gemini-api/docs/pricing",
+    "price_page_updated": "2026-09-24",
+    "price_retrieved": "2026-09-28"
+  },
+  "per_run": [
+    {
+      "run_id": "276156eb-2c73-4ba3-b185-ed32b524507f",
+      "contact_id": "CT-0001",
+      "turns": 1,
+      "spans": 38,
+      "e2e_latency_ms": 423.7,
+      "llm_calls": 0,
+      "tool_calls": 4,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "run_id": "10e5ba3c-df86-4213-a897-5d42f09a77ee",
+      "contact_id": "CT-0002",
+      "turns": 1,
+      "spans": 42,
+      "e2e_latency_ms": 355.6,
+      "llm_calls": 0,
+      "tool_calls": 6,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "run_id": "fc61259a-2b16-4e2a-8def-6424244079d2",
+      "contact_id": "CT-0003",
+      "turns": 1,
+      "spans": 33,
+      "e2e_latency_ms": 270.3,
+      "llm_calls": 0,
+      "tool_calls": 3,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "run_id": "17500c8b-8a6d-4503-a9ea-7bfaac2051b9",
+      "contact_id": "CT-0004",
+      "turns": 1,
+      "spans": 36,
+      "e2e_latency_ms": 291.8,
+      "llm_calls": 0,
+      "tool_calls": 4,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "run_id": "4ef318d4-78f8-4ebf-83a4-a494d7ec371f",
+      "contact_id": "CT-0005",
+      "turns": 1,
+      "spans": 40,
+      "e2e_latency_ms": 326.3,
+      "llm_calls": 0,
+      "tool_calls": 5,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "run_id": "f5f616ef-b762-4650-af2c-0a8695c8c4f0",
+      "contact_id": "CT-0006",
+      "turns": 1,
+      "spans": 50,
+      "e2e_latency_ms": 413.2,
+      "llm_calls": 0,
+      "tool_calls": 8,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "run_id": "463ad4c5-7f52-46c9-ae52-689a12022a86",
+      "contact_id": "CT-0007",
+      "turns": 1,
+      "spans": 17,
+      "e2e_latency_ms": 130.9,
+      "llm_calls": 0,
+      "tool_calls": 1,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "run_id": "5e1eb4f8-7390-4d57-8294-aee1317e59c0",
+      "contact_id": "CT-0008",
+      "turns": 1,
+      "spans": 17,
+      "e2e_latency_ms": 137.8,
+      "llm_calls": 0,
+      "tool_calls": 1,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "run_id": "aa1ae86c-6f51-4d62-8768-951c25f5bde5",
+      "contact_id": "CT-0009",
+      "turns": 1,
+      "spans": 12,
+      "e2e_latency_ms": 93.7,
+      "llm_calls": 0,
+      "tool_calls": 0,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "run_id": "068f69cb-4da7-4892-9564-e4986179f283",
+      "contact_id": "CT-0010",
+      "turns": 1,
+      "spans": 12,
+      "e2e_latency_ms": 94.8,
+      "llm_calls": 0,
+      "tool_calls": 0,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "run_id": "25de9951-1014-4f9d-996c-617f08fdf4c7",
+      "contact_id": "CT-0011",
+      "turns": 1,
+      "spans": 37,
+      "e2e_latency_ms": 321.0,
+      "llm_calls": 0,
+      "tool_calls": 5,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "run_id": "94fbacf2-ffec-4d91-a56b-569e414582a5",
+      "contact_id": "CT-0012",
+      "turns": 1,
+      "spans": 31,
+      "e2e_latency_ms": 260.8,
+      "llm_calls": 0,
+      "tool_calls": 2,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "run_id": "764d5b47-8f4e-4fd4-b17d-b7aed91b3e64",
+      "contact_id": "CT-0013",
+      "turns": 2,
+      "spans": 66,
+      "e2e_latency_ms": 545.0,
+      "llm_calls": 0,
+      "tool_calls": 6,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "run_id": "912db4c1-612c-4c8f-a40e-f749ecbf5541",
+      "contact_id": "CT-0014",
+      "turns": 1,
+      "spans": 47,
+      "e2e_latency_ms": 426.6,
+      "llm_calls": 0,
+      "tool_calls": 8,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "cost_usd": 0.0
+    }
+  ],
+  "quality": {
+    "source": "reports/eval_report.json",
+    "generated_at": "2026-09-28T17:11:50+00:00",
+    "cases": 18,
+    "agent_engine": "rules/templates",
+    "intent_accuracy": 1.0,
+    "action_accuracy": 1.0,
+    "policy_ref_recall": 1.0,
+    "citation_validity": 1.0,
+    "hallucination_rate": 0.0,
+    "hallucination": {
+      "status": "partial",
+      "judge_model": "gemini-3.6-flash",
+      "mean_score": 1.0,
+      "pass_rate": 1.0,
+      "scored_cases": 2,
+      "errors": 16
+    },
+    "faithfulness": {
+      "status": "not_run",
+      "reason": "RuntimeError: judge unavailable and this judge prompt is not cached (no score invented)",
+      "errors": 18
+    },
+    "answer_relevancy": {
+      "status": "not_run",
+      "reason": "RuntimeError: judge unavailable and this judge prompt is not cached (no score invented)",
+      "errors": 18
+    },
+    "judge": {
+      "model": "gemini-3.6-flash",
+      "status": "ran",
+      "reason": "gemini-3.6-flash unusable (ClientError); replaying 2 cached verdicts"
+    },
+    "hallucination_coverage": "2/18 cases judged"
+  },
+  "notes": [
+    "No LLM spans in this export: the traced run used deterministic rules/templates (Gemini was unavailable: model/quota), so thinking latency, tokens and cost are empty rather than estimated.",
+    "hallucination: judged on only 2 of 18 cases (16 judge calls failed: quota / 503); treat the rate as indicative only.",
+    "faithfulness: not run (RuntimeError: judge unavailable and this judge prompt is not cached (no score invented)).",
+    "answer_relevancy: not run (RuntimeError: judge unavailable and this judge prompt is not cached (no score invented))."
+  ]
+}

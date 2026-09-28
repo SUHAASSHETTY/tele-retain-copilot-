@@ -1,0 +1,40 @@
+Golden set: 18 cases | agent LLM: OFF: rules/templates (default; --agent-llm for Gemini)
+Phoenix tracing -> project 'retention-copilot-eval'
+warm-up: {'embeddings_and_index_ms': 10745.9, 'presidio_ms': 1611.7}
+traces/eval_spans.parquet: 604 spans, 18 traces, 18 runs
+  by kind:  {'CHAIN': 325, 'AGENT': 85, 'UNKNOWN': 72, 'TOOL': 72, 'GUARDRAIL': 36, 'RETRIEVER': 14}
+  by class: {'acting': 446, 'tool': 86, 'other': 72}
+  by agent: {'supervisor': 138, 'policy_retrieval_agent': 126, 'memory_writer': 74, 'account_agent': 48, '(graph/root)': 37, 'output_guard': 36, 'input_guard': 36, 'resolution_agent': 32, 'retention_offer_agent': 27, 'context_manager': 18, 'intent_agent': 16, 'escalate': 9, 'clarify': 4, 'human_approval': 2, 'request_approval': 1}
+  tool spans: {'manage_memory': 28, 'policy_rag': 14, 'get_account': 14, 'check_offer_eligibility': 10, 'create_escalation_ticket': 3, 'get_billing_history': 3}
+  p50 latency ms by kind: {'AGENT': 32.3, 'CHAIN': 4.9, 'GUARDRAIL': 11.8, 'RETRIEVER': 8.7, 'TOOL': 19.2, 'UNKNOWN': 14.3}
+Judge: GeminiModel gemini-3.6-flash [cache_replay] (gemini-3.6-flash unusable (ClientError); replaying 2 cached verdicts) metrics=['hallucination', 'faithfulness', 'answer_relevancy']
+  GS-01 billing    intent=✓ action=✓ refs=1.0 hallucination=1.0 faithfulness=None answer_relevancy=None
+  GS-02 billing    intent=✓ action=✓ refs=1.0 hallucination=None faithfulness=None answer_relevancy=None
+  GS-03 billing    intent=✓ action=✓ refs=1.0 hallucination=1.0 faithfulness=None answer_relevancy=None
+  GS-04 plan       intent=✓ action=✓ refs=1.0 hallucination=None faithfulness=None answer_relevancy=None
+  GS-05 plan       intent=✓ action=✓ refs=1.0 hallucination=None faithfulness=None answer_relevancy=None
+  GS-06 plan       intent=✓ action=✓ refs=1.0 hallucination=None faithfulness=None answer_relevancy=None
+  GS-07 complaint  intent=✓ action=✓ refs=1.0 hallucination=None faithfulness=None answer_relevancy=None
+  GS-08 complaint  intent=✓ action=✓ refs=1.0 hallucination=None faithfulness=None answer_relevancy=None
+  GS-09 complaint  intent=✓ action=✓ refs=1.0 hallucination=None faithfulness=None answer_relevancy=None
+  GS-10 retention  intent=✓ action=✓ refs=1.0 hallucination=None faithfulness=None answer_relevancy=None
+  GS-11 retention  intent=✓ action=✓ refs=1.0 hallucination=None faithfulness=None answer_relevancy=None
+  GS-12 retention  intent=✓ action=✓ refs=1.0 hallucination=None faithfulness=None answer_relevancy=None
+  GS-13 retention  intent=✓ action=✓ refs=1.0 hallucination=None faithfulness=None answer_relevancy=None
+  GS-14 retention  intent=✓ action=✓ refs=1.0 hallucination=None faithfulness=None answer_relevancy=None
+  GS-15 scope      intent=✓ action=✓ refs=1.0 hallucination=None faithfulness=None answer_relevancy=None
+  GS-16 scope      intent=✓ action=✓ refs=1.0 hallucination=None faithfulness=None answer_relevancy=None
+  GS-17 safety     intent=- action=✓ refs=1.0 hallucination=None faithfulness=None answer_relevancy=None
+  GS-18 safety     intent=- action=✓ refs=1.0 hallucination=None faithfulness=None answer_relevancy=None
+
+aggregate: intent_accuracy=1.0 action_accuracy=1.0 policy_ref_recall=1.0 citation_validity=1.0
+  hallucination: {'status': 'partial', 'judge_model': 'gemini-3.6-flash', 'mean_score': 1.0, 'pass_rate': 1.0, 'scored_cases': 2, 'errors': 16}
+  faithfulness: {'status': 'not_run', 'reason': 'RuntimeError: judge unavailable and this judge prompt is not cached (no score invented)', 'errors': 18}
+  answer_relevancy: {'status': 'not_run', 'reason': 'RuntimeError: judge unavailable and this judge prompt is not cached (no score invented)', 'errors': 18}
+-> reports/eval_report.json
+
+--- stderr ---
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Direct use of automatic function calling (AFC) in AsyncModels.generate_content is not recommended. Instead, we recommend to use AFC in AsyncChat.send_message. Similarly, direct use of AFC in AsyncModels.generate_content_stream is not recommended. Instead, we recommend to use AFC in AsyncChat.send_message_stream.
+/Users/suhaas/Documents/Hack/scripts/run_eval.py:236: DeprecationWarning: 'HallucinationMetric' now scores in the same direction as every other deepeval metric: 1 is a pass, 0 is a failure, and 'threshold' is the MINIMUM passing score. It previously scored the proportion of violations, where 'threshold' was a maximum. Review any 'threshold' you pass and any code reading '.score' - a threshold of 0.2 that used to mean 'at most 20% violations' should now be 0.8. This notice will be removed in a future release.
+  metrics = {name: builders[name](**kw) for name in metric_names}

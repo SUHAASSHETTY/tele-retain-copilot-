@@ -1,0 +1,114 @@
+{
+  "generated_at": "2026-09-28T17:14:41+00:00",
+  "generator": "scripts/regenerate_evidence.py",
+  "mode": "deterministic",
+  "status": "PASS",
+  "total_seconds": 303.1,
+  "steps": [
+    {
+      "step": 1,
+      "name": "data",
+      "status": "skipped",
+      "seconds": 0.0,
+      "detail": "already present"
+    },
+    {
+      "step": 2,
+      "name": "index",
+      "status": "ok",
+      "seconds": 2.1,
+      "detail": "indexed 59 clauses into 'policy_clauses' (fingerprint c82c6734fcab778f) at /Users/suhaas/Documents/Hack/data/r"
+    },
+    {
+      "step": 3,
+      "name": "phoenix",
+      "status": "ok",
+      "seconds": 9.2,
+      "detail": "http://localhost:6006"
+    },
+    {
+      "step": 4,
+      "name": "tools",
+      "status": "ok",
+      "seconds": 18.2,
+      "detail": "plaintext PII leak check over 200 identifiers: PASS"
+    },
+    {
+      "step": 5,
+      "name": "contacts",
+      "status": "ok",
+      "seconds": 30.2,
+      "detail": "14/14 contacts matched the expected outcome; results -> reports/sample_run_results.jsonl"
+    },
+    {
+      "step": 6,
+      "name": "redteam",
+      "status": "ok",
+      "seconds": 17.5,
+      "detail": "-> reports/redteam_results.json"
+    },
+    {
+      "step": 7,
+      "name": "eval",
+      "status": "ok",
+      "seconds": 57.2,
+      "detail": "-> reports/eval_report.json"
+    },
+    {
+      "step": 8,
+      "name": "tests",
+      "status": "ok",
+      "seconds": 45.2,
+      "detail": "104 passed in 34.56s"
+    },
+    {
+      "step": 9,
+      "name": "signals",
+      "status": "ok",
+      "seconds": 0.7,
+      "detail": "NOTE: answer_relevancy: not run (RuntimeError: judge unavailable and this judge prompt is not cached (no score"
+    },
+    {
+      "step": 10,
+      "name": "dashboard",
+      "status": "ok",
+      "seconds": 17.5,
+      "detail": "reports/dashboard.png: Phoenix UI screenshot of http://localhost:6006/projects/UHJvamVjdDoyMg=="
+    },
+    {
+      "step": 11,
+      "name": "benchmark",
+      "status": "ok",
+      "seconds": 71.5,
+      "detail": "-> reports/optimization_note.md (outcomes identical: True)"
+    },
+    {
+      "step": 12,
+      "name": "api",
+      "status": "ok",
+      "seconds": 26.2,
+      "detail": "RESULT: PASS (all scenarios behaved as expected)"
+    },
+    {
+      "step": 13,
+      "name": "reconcile",
+      "status": "ok",
+      "seconds": 2.3,
+      "detail": "PASS -> reports/tool_reconciliation.json"
+    },
+    {
+      "step": 14,
+      "name": "pii",
+      "status": "ok",
+      "seconds": 4.7,
+      "detail": "PASS: no plaintext synthetic identifiers in 77 file(s) under logs, traces, reports, evidence (245 known identi"
+    },
+    {
+      "step": 15,
+      "name": "citations",
+      "status": "ok",
+      "seconds": 0.7,
+      "detail": "PASS: 337 citation(s) across 6 doc(s)"
+    }
+  ]
+}

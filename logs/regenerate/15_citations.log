@@ -1,0 +1,7 @@
+[PASS] docs/compliance.md: 27 citation(s) checked, 0 unresolved
+[PASS] docs/failure-analysis.md: 61 citation(s) checked, 0 unresolved
+[PASS] docs/model-card.md: 44 citation(s) checked, 0 unresolved
+[PASS] docs/output-risk.md: 35 citation(s) checked, 0 unresolved
+[PASS] docs/risk-register.md: 93 citation(s) checked, 0 unresolved
+[PASS] README.md: 77 citation(s) checked, 0 unresolved
+PASS: 337 citation(s) across 6 doc(s)

@@ -1,0 +1,51 @@
+{
+  "snapshot": "governance",
+  "created_at": "2026-09-28T15:09:36+00:00",
+  "generator": "scripts/find_failures.py --snapshot",
+  "files": {
+    "traces/phoenix_spans.parquet": {
+      "sha256": "3bc8dc647b07deb0a265f52ed41b7d1674012bc3585b654d74b20b8d9d7a19f5",
+      "bytes": 289162
+    },
+    "traces/eval_spans.parquet": {
+      "sha256": "28136133a707412f68cd0b0469064947324dfbbb289354dd1cc468916f29e435",
+      "bytes": 331399
+    },
+    "logs/tool_calls.jsonl": {
+      "sha256": "8133718b45213def6b032c390e7a998c9cbaddddd9eddd0d08d504e7270f8f09",
+      "bytes": 165074
+    },
+    "logs/agent_actions.jsonl": {
+      "sha256": "e22a71f4957678700cd3e9f1426fccf32bb32092c960f9cbde7decb5138cfeea",
+      "bytes": 106893
+    },
+    "logs/mcp_transcript.jsonl": {
+      "sha256": "2a9cce499f12fc5240abe0dc88560503085790665769edcf5d3d5ca0ad54cbe2",
+      "bytes": 70701
+    },
+    "logs/memory_test.log": {
+      "sha256": "5acdcc68a05a92d9a76e7712960baf94a8d3f8f3de28f4aed594079afea38d08",
+      "bytes": 7565
+    },
+    "reports/eval_report.json": {
+      "sha256": "bab7264ca48034f774a350572aa6a41546d24819c710408f3d459d39171f53c3",
+      "bytes": 21659
+    },
+    "reports/redteam_results.json": {
+      "sha256": "faeb97048b54dfb9f39348d9f6ee2bc2e7d5e5f04bf3bcd71eded7cce28fde7f",
+      "bytes": 12392
+    },
+    "reports/golden_signals.json": {
+      "sha256": "eff22350f4b193a5083215a8144b1b4f3bf5b475d1f1dd122bab57fe684235a3",
+      "bytes": 8632
+    },
+    "reports/regenerate_summary.json": {
+      "sha256": "dca23fb42e900659876e0ae7195da4a3d6d8a8f9189e8f4b10b216609c863067",
+      "bytes": 2619
+    },
+    "logs/regenerate/13_pii.log": {
+      "sha256": "86d4f8bf886a8ca41f1446ff168e77aa4c000aa0cb6988636b948a570c91d594",
+      "bytes": 134
+    }
+  }
+}

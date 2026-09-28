@@ -1,0 +1,2 @@
+FAIL: 2 plaintext identifier(s) in 1 file(s)
+  logs/regenerate/04_tools.log: 2 (known_customer_id, shape_customer_id)

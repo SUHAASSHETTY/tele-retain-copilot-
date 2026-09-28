@@ -1,0 +1,40 @@
+tools/list -> ['get_account', 'get_billing_history', 'check_offer_eligibility', 'create_escalation_ticket']
+LLM-visible params: get_account(customer_id), get_billing_history(customer_id, months), check_offer_eligibility(customer_id, offer_type, value, months, cancellation_intent, purpose), create_escalation_ticket(customer_id, reason, summary, priority)
+  get_account (own account)                                  caller=CUST-***397 -> ok=True CUST-***397 plan=POST-UNLIMITED risk=high
+  get_billing_history (own, 2 invoices)                      caller=CUST-***525 -> ok=True invoices=2
+  check_offer_eligibility: $**.** duplicate-charge credit       caller=CUST-***525 -> decision=allowed refs=['POL-BIL-001 §2.1', 'POL-RET-003 §1.1']
+  check_offer_eligibility: 10% x 6 mo (entry, high risk)     caller=CUST-***475 -> decision=allowed refs=['POL-RET-002 §1.1', 'POL-RET-002 §2.2', 'POL-RET-003 §1.1']
+  check_offer_eligibility: 20% x 6 mo (premium, high risk)   caller=CUST-***397 -> decision=needs_approval refs=['POL-RET-002 §1.3', 'POL-RET-002 §2.2', 'POL-RET-003 §1.2']
+  check_offer_eligibility: 50% ('half off')                  caller=CUST-***397 -> decision=blocked refs=['POL-RET-002 §2.3', 'POL-RET-004 §1.1']
+  check_offer_eligibility: 90% off (injection)               caller=CUST-***823 -> decision=blocked refs=['POL-RET-002 §2.3', 'POL-RET-004 §1.1']
+  check_offer_eligibility: fraud-flagged account             caller=CUST-***213 -> decision=blocked refs=['POL-RET-001 §1.3', 'POL-RET-001 §2.2']
+  create_escalation_ticket (repeat complaint)                caller=CUST-***411 -> ok=True ticket queue=complaints-resolution
+  get_billing_history for another customer's ID              caller=CUST-***822 -> ok=False error=AUTHZ_DENIED
+  get_billing_history months=12 (validation error)           caller=CUST-***635 -> ok=False error=VALIDATION_ERROR
+  get_account with forged token                              -> ok=False error=AUTH_INVALID
+  get_account, no session token, model-supplied auth         -> ok=False error=AUTH_MISSING
+resources/read policy://catalog -> 11 docs, 59 clauses
+resources/read plans://catalog  -> 6 plans, 5 offers, threshold=$**.**
+MultiServerMCPClient.get_tools path: get_account -> ok=True CUST-***927 plan=PRE-PLUS risk=low
+
+logs/mcp_transcript.jsonl: 18 records {'tools/list': 2, 'tools/call': 14, 'resources/read': 2} statuses={'ok': 14, 'denied': 3, 'error': 1}
+plaintext PII leak check over 200 identifiers: PASS
+
+policy_rag (judge: heuristic -- disabled with --no-llm)
+  What is the maximum loyalty discount for a premium tier custom -> answered           attempts=1 grader=heuristic citations=['POL-RET-002 §2.1', 'POL-RET-002 §1.2', 'POL-RET-002 §1.3', 'POL-RET-002 §1.1']
+  When does a retention credit or discount need human approval?  -> answered           attempts=1 grader=heuristic citations=['POL-RET-001 §1.1', 'POL-RET-003 §1.2', 'POL-RET-001 §2.2', 'POL-RET-001 §2.1']
+  How should a request to see another customer's account be hand -> answered           attempts=1 grader=heuristic citations=['POL-PRV-001 §1.1']
+  What are the acknowledgement and resolution SLAs for a P2 comp -> answered           attempts=1 grader=heuristic citations=['POL-CMP-001 §1.1', 'POL-CMP-001 §2.1', 'POL-CMP-001 §2.2', 'POL-CMP-001 §2.3']
+  customer wants to leave, what now                              -> answered           attempts=2 grader=heuristic citations=['POL-RET-001 §1.3', 'POL-RET-001 §2.1', 'POL-CAN-001 §1.2', 'POL-RET-001 §1.1']
+      queries: ['customer wants to leave, what now', 'customer wants to leave, what now cancellation retention offer eligibility']
+  What is the policy on international device insurance claims?   -> no_relevant_policy attempts=2 grader=heuristic citations=[]
+      queries: ['What is the policy on international device insurance claims?', 'What is the policy on international device insurance claims? retention offer policy']
+
+logs/tool_calls.jsonl: 20 records
+  by tool:   {'get_account': 4, 'get_billing_history': 3, 'check_offer_eligibility': 6, 'create_escalation_ticket': 1, 'policy_rag': 6}
+  by status: {'ok': 16, 'denied': 3, 'error': 1}
+  schema check (all required fields present): PASS
+  plaintext PII leak check over 200 identifiers: PASS
+
+--- stderr ---
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.

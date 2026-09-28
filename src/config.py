@@ -18,6 +18,9 @@ load_dotenv(ROOT_DIR / ".env", override=False)
 # Third-party telemetry off by default: nothing leaves the machine except Gemini API calls.
 os.environ.setdefault("DEEPEVAL_TELEMETRY_OPT_OUT", "YES")
 os.environ.setdefault("ANONYMIZED_TELEMETRY", "False")  # chromadb
+os.environ.setdefault("HF_HUB_DISABLE_PROGRESS_BARS", "1")
+os.environ.setdefault("TRANSFORMERS_VERBOSITY", "error")
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 
 # --- Repository paths (scored layout; do not rename) --------------------------
 DATA_DIR = ROOT_DIR / "data"
@@ -73,6 +76,7 @@ class Settings:
     gemini_temperature: float
     gemini_input_price_per_mtok: float   # USD per 1M input tokens, for cost estimates
     gemini_output_price_per_mtok: float  # USD per 1M output tokens (incl. thinking)
+    gemini_rpm: float                    # client-side rate limit (requests/minute) shared by all calls
 
     # Business rules
     offer_approval_threshold: float  # USD value of a credit/discount above which a human must approve
@@ -97,11 +101,12 @@ class Settings:
 def load_settings() -> Settings:
     return Settings(
         google_api_key=os.getenv("GOOGLE_API_KEY") or None,
-        gemini_model=_env_str("GEMINI_MODEL", "gemini-2.5-flash"),
-        gemini_judge_model=_env_str("GEMINI_JUDGE_MODEL", _env_str("GEMINI_MODEL", "gemini-2.5-flash")),
+        gemini_model=_env_str("GEMINI_MODEL", "gemini-3.8-flash"),
+        gemini_judge_model=_env_str("GEMINI_JUDGE_MODEL", _env_str("GEMINI_MODEL", "gemini-3.8-flash")),
         gemini_temperature=_env_float("GEMINI_TEMPERATURE", 0.0),
         gemini_input_price_per_mtok=_env_float("GEMINI_INPUT_PRICE_PER_MTOK", 0.30),
         gemini_output_price_per_mtok=_env_float("GEMINI_OUTPUT_PRICE_PER_MTOK", 2.50),
+        gemini_rpm=_env_float("GEMINI_RPM", 8),
         offer_approval_threshold=_env_float("OFFER_APPROVAL_THRESHOLD", 50.0),
         llm_timeout_s=_env_float("LLM_TIMEOUT_S", 60.0),
         tool_timeout_s=_env_float("TOOL_TIMEOUT_S", 20.0),

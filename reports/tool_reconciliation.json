@@ -1,0 +1,57 @@
+{
+  "generated_at": "2026-09-28T17:14:35+00:00",
+  "generator": "scripts/reconcile_tools.py",
+  "status": "PASS",
+  "registry": {
+    "get_account": "mcp",
+    "get_billing_history": "mcp",
+    "check_offer_eligibility": "mcp",
+    "create_escalation_ticket": "mcp",
+    "policy_rag": "local",
+    "manage_memory": "langmem"
+  },
+  "code_calls": {
+    "get_account": [
+      "src/agents/account_agent.py"
+    ],
+    "get_billing_history": [
+      "src/agents/account_agent.py"
+    ],
+    "create_escalation_ticket": [
+      "src/agents/human_loop.py"
+    ],
+    "check_offer_eligibility": [
+      "src/agents/retention_offer_agent.py"
+    ]
+  },
+  "logged_tools": [
+    "check_offer_eligibility",
+    "create_escalation_ticket",
+    "get_account",
+    "get_billing_history",
+    "manage_memory",
+    "policy_rag"
+  ],
+  "transcript_tools": [
+    "check_offer_eligibility",
+    "create_escalation_ticket",
+    "get_account",
+    "get_billing_history"
+  ],
+  "span_tools": [
+    "check_offer_eligibility",
+    "create_escalation_ticket",
+    "get_account",
+    "get_billing_history",
+    "manage_memory",
+    "policy_rag"
+  ],
+  "checks": {
+    "logged_tools_not_in_code": [],
+    "span_tools_not_in_code": [],
+    "code_calls_not_registered": [],
+    "transcript_tools_not_in_code": [],
+    "registered_tools_never_logged": [],
+    "registered_tools_without_spans": []
+  }
+}

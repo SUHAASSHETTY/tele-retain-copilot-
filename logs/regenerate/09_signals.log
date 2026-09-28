@@ -1,0 +1,14 @@
+reports/golden_signals.json <- traces/phoenix_spans.parquet
+  latency thinking         {'count': 0, 'p50_ms': None, 'p95_ms': None, 'mean_ms': None}
+  latency acting           {'count': 361, 'p50_ms': 5.8, 'p95_ms': 256.4, 'mean_ms': 34.7}
+  latency tool             {'count': 64, 'p50_ms': 19.3, 'p95_ms': 52.8, 'mean_ms': 24.7}
+  latency end_to_end_turn  {'count': 15, 'p50_ms': 291.8, 'p95_ms': 424.5, 'mean_ms': 272.8}
+  latency end_to_end_turn_warm {'count': 14, 'p50_ms': 281.0, 'p95_ms': 417.9, 'mean_ms': 262.0}
+  traffic 14 runs, 15 turns, 478 spans, 0 LLM / 53 tool calls
+  errors  {'error_spans': 0, 'error_span_rate': 0.0, 'tool_calls_not_ok': 0, 'tool_status_counts': {'ok': 53}, 'tool_status_source': 'tool_middleware.* spans (logging middleware)'}
+  tokens  {'prompt': 0, 'completion': 0, 'total': 0, 'llm_spans': 0, 'per_llm_call_mean': None} | cost $**.** total
+  quality intent=1.0 action=1.0 hallucination_rate=0.0
+  NOTE: No LLM spans in this export: the traced run used deterministic rules/templates (Gemini was unavailable: model/quota), so thinking latency, tokens and cost are empty rather than estimated.
+  NOTE: hallucination: judged on only 2 of 18 cases (16 judge calls failed: quota / 503); treat the rate as indicative only.
+  NOTE: faithfulness: not run (RuntimeError: judge unavailable and this judge prompt is not cached (no score invented)).
+  NOTE: answer_relevancy: not run (RuntimeError: judge unavailable and this judge prompt is not cached (no score invented)).

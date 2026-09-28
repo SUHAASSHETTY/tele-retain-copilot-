@@ -1,0 +1,11 @@
+registry (6): {'get_account': 'mcp', 'get_billing_history': 'mcp', 'check_offer_eligibility': 'mcp', 'create_escalation_ticket': 'mcp', 'policy_rag': 'local', 'manage_memory': 'langmem'}
+logged: ['check_offer_eligibility', 'create_escalation_ticket', 'get_account', 'get_billing_history', 'manage_memory', 'policy_rag']
+spans:  ['check_offer_eligibility', 'create_escalation_ticket', 'get_account', 'get_billing_history', 'manage_memory', 'policy_rag']
+code calls: ['check_offer_eligibility', 'create_escalation_ticket', 'get_account', 'get_billing_history']
+  [PASS] logged_tools_not_in_code: -
+  [PASS] span_tools_not_in_code: -
+  [PASS] code_calls_not_registered: -
+  [PASS] transcript_tools_not_in_code: -
+  [PASS] registered_tools_never_logged: -
+  [PASS] registered_tools_without_spans: -
+PASS -> reports/tool_reconciliation.json

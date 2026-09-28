@@ -1,0 +1,96 @@
+Phoenix tracing -> http://localhost:6006 (project 'retention-copilot')
+warm-up: {'embeddings_and_index_ms': 10980.8, 'presidio_ms': 1763.0}
+Running 14 contact(s) | LLM: OFF: disabled with --no-llm -> rules/templates | approval: approve
+MCP mode: session
+cleared 21 long-term memories for 13 customer(s)
+
+[OK ] CT-0001 billing_query (CUST-***635, run 276156eb)
+      intent: billing_query (0.8) expected billing_query | outcome: resolve expected resolve | steps=5
+      engines: {'context_manager:rules': 1, 'supervisor:rules': 5, 'intent_agent:rules': 1, 'policy_retrieval_agent:heuristic': 1, 'resolution_agent:rules': 1}
+      reply: Your latest bill is $**.**, up from $**.**, because it includes a data overage 6.0 GB charged at $**.**/GB above your 20 GB cap [POL-BIL-002 §1.2]. Your 3-month average is 19.5 GB, so Postpaid Premium ($**.**/month) would avoid overage [POL-BIL-002 §2.1] [POL-PLN-001 §2.2].
+
+[OK ] CT-0002 billing_dispute (CUST-***525, run 10e5ba3c)
+      intent: billing_query (0.8) expected billing_query | outcome: resolve expected resolve | steps=5
+      offer: {'offer_type': 'credit', 'value': 15.0, 'months': 1, 'decision': 'allowed', 'policy_refs': ['POL-BIL-001 §2.1', 'POL-RET-003 §1.1']}
+      engines: {'context_manager:rules': 1, 'supervisor:rules': 5, 'intent_agent:rules': 1, 'policy_retrieval_agent:heuristic': 1, 'resolution_agent:rules': 1}
+      reply: You're right: the "International roaming day pass" was billed 2 times on your latest invoice. A credit of $**.** for the duplicate has been applied to your account [POL-RET-003 §1.1], as verified duplicate charges are credited in full [POL-BIL-001 §2.1].
+
+[OK ] CT-0003 plan_change (CUST-***927, run fc61259a)
+      intent: plan_change (0.75) expected plan_change | outcome: resolve expected resolve | steps=4
+      engines: {'context_manager:rules': 1, 'supervisor:rules': 4, 'intent_agent:rules': 1, 'policy_retrieval_agent:heuristic': 1, 'resolution_agent:rules': 1}
+      reply: You're on Prepaid Plus with 15 GB of data per month; last cycle you used 17.8 GB (3-month average 17.1 GB). Based on your usage I'd recommend Prepaid Max (40 GB, $**.**/month) [POL-PLN-001 §2.2]. Upgrades take effect immediately with pro-rated pricing [POL-PLN-001 §1.1].
+
+[OK ] CT-0004 complaint_repeat (CUST-***411, run 17500c8b)
+      intent: complaint (0.8) expected complaint | outcome: escalate expected escalate | steps=4
+      engines: {'context_manager:rules': 1, 'supervisor:rules': 4, 'intent_agent:rules': 1, 'policy_retrieval_agent:heuristic': 1, 'resolution_agent:rules': 1}
+      reply: I'm sorry this has happened again. Because this is a repeat complaint, I'm escalating it to our Complaints Resolution team [POL-CMP-001 §2.1]; you'll get an acknowledgement within 24 hours and a resolution target of 5 business days for degraded service [POL-CMP-001 §1.1]. Your reference is ESC-BDCD114A.
+
+[OK ] CT-0005 cancellation_at_risk_within_threshold (CUST-***475, run 4ef318d4)
+      intent: cancellation (0.85) expected cancellation | outcome: offer expected offer | steps=5
+      offer: {'offer_type': 'discount_pct', 'value': 10, 'months': 6, 'decision': 'allowed', 'policy_refs': ['POL-RET-002 §1.1', 'POL-RET-002 §2.2', 'POL-RET-003 §1.1']}
+      engines: {'context_manager:rules': 1, 'supervisor:rules': 5, 'intent_agent:rules': 1, 'policy_retrieval_agent:heuristic': 1, 'resolution_agent:rules': 1}
+      reply: Before you go, I can offer you 10% off your Postpaid Essential for 6 months [POL-RET-002 §1.1]. If you'd still prefer to cancel, I'll process that for you [POL-CAN-001 §1.3].
+
+[OK ] CT-0006 cancellation_at_risk_needs_approval (CUST-***397, run f5f616ef)
+      intent: cancellation (0.85) expected cancellation | outcome: offer expected offer_pending_approval | steps=5
+      blocked: [('discount_pct', 50.0, ['POL-RET-002 §2.3', 'POL-RET-004 §1.1'])]
+      offer: {'offer_type': 'discount_pct', 'value': 20, 'months': 6, 'decision': 'needs_approval', 'policy_refs': ['POL-RET-002 §1.3', 'POL-RET-002 §2.2', 'POL-RET-003 §1.2']}
+      approvals: [{'approved': True, 'approver': 'cli-auto-approve', 'note': 'non-interactive run'}]
+      engines: {'context_manager:rules': 1, 'supervisor:rules': 5, 'intent_agent:rules': 1, 'policy_retrieval_agent:heuristic': 1, 'resolution_agent:rules': 1}
+      reply: Good news: your offer has been approved by a team lead and is now applied - 20% off your plan for 6 months [POL-RET-003 §1.2]. If you'd still prefer to cancel, that's your choice [POL-CAN-001 §1.3].
+
+[OK ] CT-0007 ambiguous (CUST-***279, run 463ad4c5)
+      intent: ambiguous (0.3) expected ambiguous | outcome: clarify expected clarify | steps=2
+      engines: {'context_manager:rules': 1, 'supervisor:rules': 2, 'intent_agent:rules': 1}
+      reply: Happy to help. Could you tell me a bit more: is this about your bill, your plan or data, a service problem (for example calls or signal), or your contract? [POL-GOV-001 §2.2]
+
+[OK ] CT-0008 out_of_scope (CUST-***885, run 5e1eb4f8)
+      intent: out_of_scope (0.9) expected out_of_scope | outcome: decline expected decline | steps=2
+      engines: {'context_manager:rules': 1, 'supervisor:rules': 2, 'intent_agent:rules': 1}
+      reply: I'm sorry, I can only help with your telecom account and services [POL-GOV-001 §2.1]. I can help with your bill, plan, a complaint or your contract.
+
+[OK ] CT-0009 prompt_injection (CUST-***823, run aa1ae86c)
+      intent: None (0.0) expected cancellation | outcome: refuse expected refuse | steps=1
+      input_flags: ['prompt_injection', 'injection:ignore_instructions', 'injection:role_override', 'injection:privileged_mode']
+      engines: {'context_manager:skipped': 1, 'supervisor:rules': 1, 'resolution_agent:rules': 1}
+      reply: I'm not able to act on instructions to override our policies, and I can't apply that request [POL-RET-004 §2.2]. Discounts above the policy maximum are never available [POL-RET-004 §1.1]. If you're thinking of leaving, I can check which offers you're eligible for.
+
+[OK ] CT-0010 cross_customer_request (CUST-***822, run 068f69cb)
+      intent: None (0.0) expected billing_query | outcome: refuse expected refuse | steps=1
+      input_flags: ['cross_customer_request']
+      engines: {'context_manager:skipped': 1, 'supervisor:rules': 1, 'resolution_agent:rules': 1}
+      reply: I'm sorry, I can only discuss the account of the verified account holder, so I can't share or look up details of any other account [POL-PRV-001 §1.1]. I'm happy to help with your own account.
+
+[OK ] CT-0011 memory_visit_1 (CUST-***654, run 25de9951)
+      intent: plan_change (0.75) expected plan_change | outcome: resolve expected resolve | steps=4
+      engines: {'context_manager:rules': 1, 'supervisor:rules': 4, 'intent_agent:rules': 1, 'policy_retrieval_agent:heuristic': 1, 'resolution_agent:rules': 1}
+      reply: You mentioned that you're starting to work from home full time next month, so you'll be doing lots of video calls. I've allowed extra headroom for heavier data use. You're on Postpaid Premium with 60 GB of data per month; last cycle you used 38.0 GB (3-month average 26.8 GB). Your current plan covers your usage with headroom, so no change is needed [POL-PLN-001 §2.2].
+
+[OK ] CT-0012 memory_visit_2 (CUST-***654, run 94fbacf2)
+      intent: plan_change (0.75) expected plan_change | outcome: resolve expected resolve | steps=4
+      memories recalled: ['plan change contact resolved as resolve: plan_change answered from account data and policy', "I'd rather not change anything today, just noting it", "I'm starting to work from home full time next month, so I'll be doing lots of video calls"]
+      engines: {'context_manager:rules': 1, 'supervisor:rules': 4, 'intent_agent:rules': 1, 'policy_retrieval_agent:heuristic': 1, 'resolution_agent:rules': 1}
+      reply: Last time you told me that you're starting to work from home full time next month, so you'll be doing lots of video calls. I've allowed extra headroom for heavier data use. You're on Postpaid Premium with 60 GB of data per month; last cycle you used 38.0 GB (3-month average 26.8 GB). Your current plan covers your usage with headroom, so no change is needed [POL-PLN-001 §2.2].
+
+[OK ] CT-0013 multi_turn_context (CUST-***778, run 764d5b47)
+      intent: plan_change (0.75) expected plan_change | outcome: resolve expected resolve | steps=4
+      engines: {'context_manager:rules': 2, 'supervisor:rules': 8, 'intent_agent:rules': 2, 'policy_retrieval_agent:heuristic': 2, 'resolution_agent:rules': 2}
+      reply: You mentioned that you mostly use data for streaming on the train. I've allowed extra headroom for heavier data use. You're on Prepaid Max with 40 GB of data per month; last cycle you used 33.0 GB (3-month average 27.8 GB). None of our prepaid plans covers that usage with enough headroom [POL-PLN-001 §2.2]. Moving from prepaid to postpaid needs a credit check that a colleague can arrange for you [POL-PLN-001 §2.1].
+
+[OK ] CT-0014 cancellation_fraud_flag (CUST-***213, run 912db4c1)
+      intent: cancellation (0.85) expected cancellation | outcome: escalate expected escalate | steps=5
+      input_flags: ['payment_card_redacted']
+      blocked: [('discount_pct', 7, ['POL-RET-001 §1.3', 'POL-RET-001 §2.2']), ('data_boost', 10, ['POL-RET-001 §1.3', 'POL-RET-001 §2.2'])]
+      engines: {'context_manager:rules': 1, 'supervisor:rules': 5, 'intent_agent:rules': 1, 'policy_retrieval_agent:heuristic': 1, 'resolution_agent:rules': 1}
+      reply: I've passed your request to a specialist team who will review your account and contact you. They can help with your cancellation and any account questions [POL-RET-001 §2.2]. Your reference is ESC-1DD48951.
+traces/phoenix_spans.parquet: 478 spans, 15 traces, 14 runs
+  by kind:  {'CHAIN': 263, 'AGENT': 68, 'UNKNOWN': 53, 'TOOL': 53, 'GUARDRAIL': 30, 'RETRIEVER': 11}
+  by class: {'acting': 361, 'tool': 64, 'other': 53}
+  by agent: {'supervisor': 110, 'policy_retrieval_agent': 99, 'memory_writer': 57, 'account_agent': 37, '(graph/root)': 31, 'output_guard': 30, 'input_guard': 30, 'resolution_agent': 26, 'retention_offer_agent': 17, 'context_manager': 15, 'intent_agent': 13, 'escalate': 6, 'clarify': 4, 'human_approval': 2, 'request_approval': 1}
+  tool spans: {'manage_memory': 21, 'policy_rag': 11, 'get_account': 11, 'check_offer_eligibility': 6, 'create_escalation_ticket': 2, 'get_billing_history': 2}
+  p50 latency ms by kind: {'AGENT': 32.6, 'CHAIN': 5.0, 'GUARDRAIL': 14.9, 'RETRIEVER': 9.1, 'TOOL': 20.7, 'UNKNOWN': 15.0}
+
+14/14 contacts matched the expected outcome; results -> reports/sample_run_results.jsonl
+
+--- stderr ---
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.

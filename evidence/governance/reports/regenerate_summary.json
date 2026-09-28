@@ -1,0 +1,107 @@
+{
+  "generated_at": "2026-09-28T15:09:35+00:00",
+  "generator": "scripts/regenerate_evidence.py",
+  "mode": "deterministic",
+  "status": "PASS",
+  "total_seconds": 188.0,
+  "steps": [
+    {
+      "step": 1,
+      "name": "data",
+      "status": "skipped",
+      "seconds": 0.0,
+      "detail": "already present"
+    },
+    {
+      "step": 2,
+      "name": "index",
+      "status": "ok",
+      "seconds": 1.9,
+      "detail": "indexed 59 clauses into 'policy_clauses' (fingerprint c82c6734fcab778f) at /Users/suhaas/Documents/Hack/data/r"
+    },
+    {
+      "step": 3,
+      "name": "phoenix",
+      "status": "ok",
+      "seconds": 8.9,
+      "detail": "http://localhost:6006"
+    },
+    {
+      "step": 4,
+      "name": "tools",
+      "status": "ok",
+      "seconds": 15.8,
+      "detail": "plaintext PII leak check over 200 identifiers: PASS"
+    },
+    {
+      "step": 5,
+      "name": "contacts",
+      "status": "ok",
+      "seconds": 31.5,
+      "detail": "14/14 contacts matched the expected outcome; results -> reports/sample_run_results.jsonl"
+    },
+    {
+      "step": 6,
+      "name": "redteam",
+      "status": "ok",
+      "seconds": 18.4,
+      "detail": "-> reports/redteam_results.json"
+    },
+    {
+      "step": 7,
+      "name": "eval",
+      "status": "ok",
+      "seconds": 39.5,
+      "detail": "-> reports/eval_report.json"
+    },
+    {
+      "step": 8,
+      "name": "tests",
+      "status": "ok",
+      "seconds": 47.9,
+      "detail": "104 passed in 34.50s"
+    },
+    {
+      "step": 9,
+      "name": "signals",
+      "status": "ok",
+      "seconds": 0.7,
+      "detail": "NOTE: LLM-as-judge metrics not available: gemini-2.5-flash unusable (ClientError) (see eval_report.json)."
+    },
+    {
+      "step": 10,
+      "name": "dashboard",
+      "status": "ok",
+      "seconds": 15.8,
+      "detail": "reports/dashboard.png: Phoenix UI screenshot of http://localhost:6006/projects/UHJvamVjdDoxOA=="
+    },
+    {
+      "step": 11,
+      "name": "benchmark",
+      "status": "skipped",
+      "seconds": 0.0,
+      "detail": "skipped by flag"
+    },
+    {
+      "step": 12,
+      "name": "reconcile",
+      "status": "ok",
+      "seconds": 2.3,
+      "detail": "PASS -> reports/tool_reconciliation.json"
+    },
+    {
+      "step": 13,
+      "name": "pii",
+      "status": "ok",
+      "seconds": 4.7,
+      "detail": "PASS: no plaintext synthetic identifiers in 70 file(s) under logs, traces, reports, evidence (245 known identi"
+    },
+    {
+      "step": 14,
+      "name": "citations",
+      "status": "ok",
+      "seconds": 0.6,
+      "detail": "PASS: 60 citation(s) across 1 doc(s)"
+    }
+  ]
+}

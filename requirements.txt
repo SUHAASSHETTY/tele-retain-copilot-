@@ -34,8 +34,13 @@ arize-phoenix==19.17.0
 arize-phoenix-otel==0.17.1
 arize-phoenix-client==3.5.0
 openinference-instrumentation-langchain==0.1.76
-opentelemetry-sdk==1.45.0
-opentelemetry-exporter-otlp==1.45.0
+# OpenTelemetry pinned to 1.44 / 0.65b0: 1.45 removed the private `_headers` attribute that
+# phoenix.otel.register() (arize-phoenix-otel 0.17.1) reads, which crashes register().
+opentelemetry-api==1.44.0
+opentelemetry-sdk==1.44.0
+opentelemetry-exporter-otlp==1.44.0
+opentelemetry-instrumentation==0.65b0
+opentelemetry-semantic-conventions==0.65b0
 
 # --- Evaluation & tests ------------------------------------------------------
 deepeval==4.2.6                      # judge = deepeval.models.GeminiModel, eval_mode="llm"
