@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T17:13:36+00:00",
+  "generated_at": "2026-09-28T17:51:02+00:00",
   "generator": "scripts/golden_signals.py",
   "sources": {
     "spans": "traces/benchmark_before.parquet",
@@ -28,67 +28,67 @@
     },
     "acting": {
       "count": 150,
-      "p50_ms": 5.6,
-      "p95_ms": 1381.1,
-      "mean_ms": 192.6
+      "p50_ms": 5.0,
+      "p95_ms": 1258.6,
+      "mean_ms": 169.2
     },
     "tool": {
       "count": 36,
-      "p50_ms": 53.1,
-      "p95_ms": 878.7,
-      "mean_ms": 286.0
+      "p50_ms": 48.6,
+      "p95_ms": 634.3,
+      "mean_ms": 245.0
     },
     "tool_by_name": {
       "check_offer_eligibility": {
         "count": 6,
-        "p50_ms": 570.7,
-        "p95_ms": 610.4,
-        "mean_ms": 578.1
+        "p50_ms": 548.3,
+        "p95_ms": 553.6,
+        "mean_ms": 548.1
       },
       "create_escalation_ticket": {
         "count": 1,
-        "p50_ms": 663.0,
-        "p95_ms": 663.0,
-        "mean_ms": 663.0
+        "p50_ms": 544.4,
+        "p95_ms": 544.4,
+        "mean_ms": 544.4
       },
       "get_account": {
         "count": 5,
-        "p50_ms": 721.9,
-        "p95_ms": 921.2,
-        "mean_ms": 750.2
+        "p50_ms": 571.2,
+        "p95_ms": 746.5,
+        "mean_ms": 611.4
       },
       "get_billing_history": {
         "count": 2,
-        "p50_ms": 886.8,
-        "p95_ms": 921.2,
-        "mean_ms": 886.8
+        "p50_ms": 676.4,
+        "p95_ms": 765.0,
+        "mean_ms": 676.4
       },
       "manage_memory": {
         "count": 12,
-        "p50_ms": 19.8,
-        "p95_ms": 27.6,
-        "mean_ms": 20.9
+        "p50_ms": 18.3,
+        "p95_ms": 23.2,
+        "mean_ms": 19.0
       },
       "policy_rag": {
         "count": 5,
-        "p50_ms": 59.2,
-        "p95_ms": 71.8,
-        "mean_ms": 60.5
+        "p50_ms": 50.2,
+        "p95_ms": 63.3,
+        "mean_ms": 54.6
       }
     },
     "end_to_end_turn": {
       "count": 5,
-      "p50_ms": 1802.4,
-      "p95_ms": 2724.1,
-      "mean_ms": 1915.2
+      "p50_ms": 1410.8,
+      "p95_ms": 2391.3,
+      "mean_ms": 1680.3
     },
     "end_to_end_turn_warm": {
       "count": 4,
-      "p50_ms": 1976.4,
-      "p95_ms": 2760.0,
-      "mean_ms": 2063.5
+      "p50_ms": 1712.2,
+      "p95_ms": 2414.9,
+      "mean_ms": 1824.5
     },
-    "cold_start_first_turn_ms": 1321.9
+    "cold_start_first_turn_ms": 1103.8
   },
   "traffic": {
     "runs": 5,
@@ -167,11 +167,11 @@
   },
   "per_run": [
     {
-      "run_id": "4d57d96a-0c6b-43c2-896c-0383afa3537b",
+      "run_id": "6ffe7a1e-eb1d-4afc-9fc3-84d888e724e9",
       "contact_id": "CT-0001",
       "turns": 1,
       "spans": 38,
-      "e2e_latency_ms": 1321.9,
+      "e2e_latency_ms": 1103.8,
       "llm_calls": 0,
       "tool_calls": 4,
       "prompt_tokens": 0,
@@ -179,11 +179,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "139b2e95-28ec-4922-9d27-49cae3e711c4",
+      "run_id": "d473a033-d5e4-4afe-acfe-2c04a411bf7a",
       "contact_id": "CT-0002",
       "turns": 1,
       "spans": 42,
-      "e2e_latency_ms": 1802.4,
+      "e2e_latency_ms": 1410.8,
       "llm_calls": 0,
       "tool_calls": 6,
       "prompt_tokens": 0,
@@ -191,11 +191,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "2fda6e05-4950-4155-ac42-68714a904a76",
+      "run_id": "a2d619cc-9bd3-492d-8e39-21a315a84466",
       "contact_id": "CT-0005",
       "turns": 1,
       "spans": 40,
-      "e2e_latency_ms": 1433.7,
+      "e2e_latency_ms": 1387.7,
       "llm_calls": 0,
       "tool_calls": 5,
       "prompt_tokens": 0,
@@ -203,11 +203,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "9370f2d5-398d-407d-8bc7-8292b8087e6e",
+      "run_id": "b1cab8fe-6515-4607-a3e1-920f440776db",
       "contact_id": "CT-0006",
       "turns": 1,
       "spans": 50,
-      "e2e_latency_ms": 2150.4,
+      "e2e_latency_ms": 2013.6,
       "llm_calls": 0,
       "tool_calls": 8,
       "prompt_tokens": 0,
@@ -215,11 +215,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "ad6698f3-3079-4b2e-9029-9c3b4bdae33c",
+      "run_id": "fca4f317-1199-46cb-a5ce-5034bb0e1d2e",
       "contact_id": "CT-0014",
       "turns": 1,
       "spans": 47,
-      "e2e_latency_ms": 2867.5,
+      "e2e_latency_ms": 2485.8,
       "llm_calls": 0,
       "tool_calls": 8,
       "prompt_tokens": 0,
@@ -229,7 +229,7 @@
   ],
   "quality": {
     "source": "reports/eval_report.json",
-    "generated_at": "2026-09-28T17:11:50+00:00",
+    "generated_at": "2026-09-28T17:49:19+00:00",
     "cases": 18,
     "agent_engine": "rules/templates",
     "intent_accuracy": 1.0,

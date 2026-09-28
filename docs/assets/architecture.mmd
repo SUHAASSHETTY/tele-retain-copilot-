@@ -1,0 +1,32 @@
+flowchart TD
+    C([Customer turn]) --> IG[input_guard<br/>injection / cross-customer / toxicity / length<br/>card redaction + quarantine]
+    IG --> CM[context_manager<br/>compress history, extract session facts,<br/>select long-term memories]
+    CM --> SUP{supervisor<br/>Gemini proposes, route_from_supervisor disposes}
+    SUP -->|intent unknown| INT[intent_agent]
+    SUP -->|needs account| ACC[account_agent]
+    SUP -->|needs policy| POL[policy_retrieval_agent]
+    SUP -->|cancellation / billing error| OFF[retention_offer_agent]
+    INT --> SUP
+    ACC --> SUP
+    POL --> SUP
+    OFF --> SUP
+    SUP -->|ambiguous / out of scope| CLA[clarify]
+    SUP -->|step limit / tool failure| ESC[escalate<br/>ticket via MCP]
+    SUP -->|ready| RES[resolution_agent<br/>decide_outcome + cited draft]
+    RES -->|above threshold| RA[request_approval] --> HA[human_approval<br/>LangGraph interrupt]
+    RES -->|escalate| ESC
+    CLA -->|still unclear| ESC
+    RES --> MW
+    CLA --> MW
+    HA --> MW
+    ESC --> MW[memory_writer<br/>LangMem long-term memory]
+    MW --> OG[output_guard<br/>PII masking via Presidio, offer-limit check,<br/>citation check, risk tier]
+    OG --> R([Reply])
+
+    ACC -. stdio MCP .-> MCP[(mcp_server<br/>get_account, get_billing_history,<br/>check_offer_eligibility,<br/>create_escalation_ticket,<br/>policy://catalog, plans://catalog)]
+    OFF -. stdio MCP .-> MCP
+    ESC -. stdio MCP .-> MCP
+    POL -. tool .-> RAG[(policy_rag<br/>retrieve, grade, rewrite, cite<br/>Chroma + MiniLM)]
+    SUP -. checkpoint .-> CP[(AsyncSqliteSaver<br/>short-term memory)]
+    MW -. store .-> LTM[(LangMem over AsyncSqliteStore<br/>per-customer namespace)]
+    OG -. spans .-> PHX[(Arize Phoenix :6006<br/>masked OpenInference spans)]

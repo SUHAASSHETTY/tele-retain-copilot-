@@ -33,6 +33,12 @@ AI_DISCLOSURE = ("You are chatting with an AI assistant for (synthetic) telecom 
                  "can ask for a human agent at any time.")
 
 
+def _display_path(path) -> str:
+    """Project-relative when inside the project, otherwise just the file name (no local paths printed)."""
+    path = path.resolve()
+    return str(path.relative_to(ROOT_DIR)) if path.is_relative_to(ROOT_DIR) else path.name
+
+
 def approver(mode: str):
     async def approve(request: dict) -> dict:
         if mode == "approve":
@@ -98,7 +104,7 @@ async def cmd_run(args) -> int:
     print(f"warm-up: {warm_up()}")
     print(f"Running {len(contacts)} contact(s) | LLM: {'Gemini (' + why + ')' if use_llm else 'OFF: ' + why + ' -> rules/templates'}"
           f" | approval: {mode}")
-    if args.logs_dir:  # benchmark / scratch runs never touch the committed evidence logs
+    if args.logs_dir:  # benchmark / scratch runs never touch the project's evidence logs
         from pathlib import Path
 
         from src.audit import audit_middleware
@@ -152,7 +158,7 @@ async def cmd_run(args) -> int:
         export_spans(__import__("pathlib").Path(args.export_path).resolve() if args.export_path else None)
     matched = sum(_expected_match(s) for s in summaries)
     print(f"\n{matched}/{len(summaries)} contacts matched the expected outcome; "
-          f"results -> {results_path.resolve().relative_to(ROOT_DIR)}")
+          f"results -> {_display_path(results_path)}")
     return 0
 
 

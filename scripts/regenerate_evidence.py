@@ -2,7 +2,7 @@
 
   python -m scripts.regenerate_evidence [--llm] [--skip-benchmark]
 
-Steps (each a committed script; console output of every step is saved under logs/regenerate/):
+Steps (each a project script; console output of every step is saved under logs/regenerate/):
    1 data          synthetic data, policy corpus, sample/golden/red-team sets (only if missing)
    2 index         local Chroma index over the policy corpus
    3 phoenix       start the in-process Phoenix app on :6006 (kept running for all later steps)
@@ -18,7 +18,7 @@ Steps (each a committed script; console output of every step is saved under logs
   12 api           FastAPI SSE streaming demo -> logs/api_demo.log (bonus)
   13 reconcile     tool names across code / logs / spans -> reports/tool_reconciliation.json
   14 pii           plaintext identifier scan of logs/, traces/, reports/, evidence/
-  15 citations     every citation in docs/*.md and README.md resolves to a committed artifact
+  15 citations     every citation in docs/*.md and README.md resolves to an artifact in the project
 
 Default is deterministic (rules/templates, no Gemini) so it reproduces without quota; --llm lets the
 agent use Gemini when the preflight passes. The eval judge always tries Gemini and records the outcome.

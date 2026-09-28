@@ -62,7 +62,7 @@ def to_parquet(df: pd.DataFrame) -> pd.DataFrame:
     out["copilot_agent"] = _agent_column(out)
     out["span_class"] = out["span_kind"].fillna("UNKNOWN").map(lambda k: KIND_CLASS.get(k, "other"))
     for col in out.columns:
-        if out[col].dtype == object:
+        if out[col].dtype == object or pd.api.types.is_string_dtype(out[col]):
             out[col] = out[col].map(_cell)
     PHOENIX_SPANS_PATH.parent.mkdir(parents=True, exist_ok=True)
     out.to_parquet(PHOENIX_SPANS_PATH, index=False)

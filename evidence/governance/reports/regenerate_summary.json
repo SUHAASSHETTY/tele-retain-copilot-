@@ -17,7 +17,7 @@
       "name": "index",
       "status": "ok",
       "seconds": 1.9,
-      "detail": "indexed 59 clauses into 'policy_clauses' (fingerprint c82c6734fcab778f) at /Users/suhaas/Documents/Hack/data/r"
+      "detail": "indexed 59 clauses into 'policy_clauses' (fingerprint c82c6734fcab778f) at data/r"
     },
     {
       "step": 3,

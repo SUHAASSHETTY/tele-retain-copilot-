@@ -4,11 +4,11 @@
   "generator": "scripts/find_failures.py --snapshot",
   "files": {
     "traces/phoenix_spans.parquet": {
-      "sha256": "25a1b313d2b7b472e81d329de581b2c9157bc01a2f24b51b5986c6d0cdab1b1e",
+      "sha256": "d136dc84085ad48bb19067032f5aa5448de102e52650ddccbfbb44144a5405ef",
       "bytes": 290092
     },
     "traces/eval_spans.parquet": {
-      "sha256": "b8083beb68d8c7717384efe382b2c6bddd4df3d6bdf48a7940f1bbd052b8ddb4",
+      "sha256": "734faa9887c533a36e63718395dea373f58231c7797246876981064d7275dad7",
       "bytes": 319805
     },
     "logs/tool_calls.jsonl": {
@@ -40,12 +40,43 @@
       "bytes": 8646
     },
     "reports/regenerate_summary.json": {
-      "sha256": "41a3d0680669659801bacba4d54da5abb7b4b7745b6669c9bfdc629818bee229",
+      "sha256": "9a21f2eb607f361b76f07474fd557e23e6597b455a2e96a3b52504330dd6ccf6",
       "bytes": 2470
     },
     "logs/regenerate/13_pii.log": {
       "sha256": "d518b8656723dcf24edf97ca71dc89febfc6f07eff9d45058133398174b07ec2",
       "bytes": 118
     }
-  }
+  },
+  "redactions": [
+    {
+      "at": "2026-09-28T17:44:17+00:00",
+      "tool": "scripts/redact_local_paths.py (src/guardrails/pii.py::strip_local_paths)",
+      "what": "local machine path strings only; no records, ids or line numbers changed",
+      "files": [
+        {
+          "file": "reports/regenerate_summary.json",
+          "sha256_before": "41a3d0680669659801bacba4d54da5abb7b4b7745b6669c9bfdc629818bee229",
+          "sha256_after": "9a21f2eb607f361b76f07474fd557e23e6597b455a2e96a3b52504330dd6ccf6"
+        }
+      ]
+    },
+    {
+      "at": "2026-09-28T17:44:48+00:00",
+      "tool": "scripts/redact_local_paths.py (src/guardrails/pii.py::strip_local_paths)",
+      "what": "local machine path strings only; no records, ids or line numbers changed",
+      "files": [
+        {
+          "file": "traces/eval_spans.parquet",
+          "sha256_before": "b8083beb68d8c7717384efe382b2c6bddd4df3d6bdf48a7940f1bbd052b8ddb4",
+          "sha256_after": "734faa9887c533a36e63718395dea373f58231c7797246876981064d7275dad7"
+        },
+        {
+          "file": "traces/phoenix_spans.parquet",
+          "sha256_before": "25a1b313d2b7b472e81d329de581b2c9157bc01a2f24b51b5986c6d0cdab1b1e",
+          "sha256_after": "d136dc84085ad48bb19067032f5aa5448de102e52650ddccbfbb44144a5405ef"
+        }
+      ]
+    }
+  ]
 }

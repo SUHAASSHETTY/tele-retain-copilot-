@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T17:12:38+00:00",
+  "generated_at": "2026-09-28T17:50:09+00:00",
   "generator": "scripts/golden_signals.py",
   "sources": {
     "spans": "traces/phoenix_spans.parquet",
@@ -28,67 +28,67 @@
     },
     "acting": {
       "count": 361,
-      "p50_ms": 5.8,
-      "p95_ms": 256.4,
-      "mean_ms": 34.7
+      "p50_ms": 5.9,
+      "p95_ms": 258.6,
+      "mean_ms": 35.0
     },
     "tool": {
       "count": 64,
-      "p50_ms": 19.3,
-      "p95_ms": 52.8,
-      "mean_ms": 24.7
+      "p50_ms": 19.0,
+      "p95_ms": 54.0,
+      "mean_ms": 25.4
     },
     "tool_by_name": {
       "check_offer_eligibility": {
         "count": 6,
-        "p50_ms": 19.3,
-        "p95_ms": 19.9,
-        "mean_ms": 18.9
+        "p50_ms": 19.2,
+        "p95_ms": 20.1,
+        "mean_ms": 19.2
       },
       "create_escalation_ticket": {
         "count": 2,
-        "p50_ms": 16.4,
-        "p95_ms": 16.6,
-        "mean_ms": 16.4
+        "p50_ms": 15.2,
+        "p95_ms": 15.7,
+        "mean_ms": 15.2
       },
       "get_account": {
         "count": 11,
-        "p50_ms": 27.1,
-        "p95_ms": 34.9,
-        "mean_ms": 28.2
+        "p50_ms": 27.4,
+        "p95_ms": 35.2,
+        "mean_ms": 28.4
       },
       "get_billing_history": {
         "count": 2,
-        "p50_ms": 46.9,
-        "p95_ms": 48.5,
-        "mean_ms": 46.9
+        "p50_ms": 47.6,
+        "p95_ms": 49.6,
+        "mean_ms": 47.6
       },
       "manage_memory": {
         "count": 21,
-        "p50_ms": 17.9,
-        "p95_ms": 23.3,
-        "mean_ms": 18.2
+        "p50_ms": 17.0,
+        "p95_ms": 23.0,
+        "mean_ms": 18.0
       },
       "policy_rag": {
         "count": 11,
-        "p50_ms": 49.4,
-        "p95_ms": 57.4,
-        "mean_ms": 49.3
+        "p50_ms": 53.8,
+        "p95_ms": 65.9,
+        "mean_ms": 53.1
       }
     },
     "end_to_end_turn": {
       "count": 15,
-      "p50_ms": 291.8,
-      "p95_ms": 424.5,
-      "mean_ms": 272.8
+      "p50_ms": 294.5,
+      "p95_ms": 432.9,
+      "mean_ms": 274.3
     },
     "end_to_end_turn_warm": {
       "count": 14,
-      "p50_ms": 281.0,
-      "p95_ms": 417.9,
-      "mean_ms": 262.0
+      "p50_ms": 283.0,
+      "p95_ms": 434.7,
+      "mean_ms": 267.9
     },
-    "cold_start_first_turn_ms": 423.7
+    "cold_start_first_turn_ms": 363.1
   },
   "traffic": {
     "runs": 14,
@@ -167,11 +167,11 @@
   },
   "per_run": [
     {
-      "run_id": "276156eb-2c73-4ba3-b185-ed32b524507f",
+      "run_id": "79bfa035-1095-4336-97b5-b3680059bcd0",
       "contact_id": "CT-0001",
       "turns": 1,
       "spans": 38,
-      "e2e_latency_ms": 423.7,
+      "e2e_latency_ms": 363.1,
       "llm_calls": 0,
       "tool_calls": 4,
       "prompt_tokens": 0,
@@ -179,11 +179,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "10e5ba3c-df86-4213-a897-5d42f09a77ee",
+      "run_id": "e137d020-f00a-4634-a853-4f6304e0e592",
       "contact_id": "CT-0002",
       "turns": 1,
       "spans": 42,
-      "e2e_latency_ms": 355.6,
+      "e2e_latency_ms": 371.0,
       "llm_calls": 0,
       "tool_calls": 6,
       "prompt_tokens": 0,
@@ -191,11 +191,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "fc61259a-2b16-4e2a-8def-6424244079d2",
+      "run_id": "6db514da-00cb-4b01-962a-ee3b650e77be",
       "contact_id": "CT-0003",
       "turns": 1,
       "spans": 33,
-      "e2e_latency_ms": 270.3,
+      "e2e_latency_ms": 271.5,
       "llm_calls": 0,
       "tool_calls": 3,
       "prompt_tokens": 0,
@@ -203,11 +203,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "17500c8b-8a6d-4503-a9ea-7bfaac2051b9",
+      "run_id": "257cc68c-d0b7-4cd5-a1cf-12f9e97744ab",
       "contact_id": "CT-0004",
       "turns": 1,
       "spans": 36,
-      "e2e_latency_ms": 291.8,
+      "e2e_latency_ms": 294.5,
       "llm_calls": 0,
       "tool_calls": 4,
       "prompt_tokens": 0,
@@ -215,11 +215,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "4ef318d4-78f8-4ebf-83a4-a494d7ec371f",
+      "run_id": "55db828b-2696-4c16-90ce-f342919137b8",
       "contact_id": "CT-0005",
       "turns": 1,
       "spans": 40,
-      "e2e_latency_ms": 326.3,
+      "e2e_latency_ms": 333.4,
       "llm_calls": 0,
       "tool_calls": 5,
       "prompt_tokens": 0,
@@ -227,11 +227,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "f5f616ef-b762-4650-af2c-0a8695c8c4f0",
+      "run_id": "f9e99065-460c-49c5-a719-83c8e5d69c00",
       "contact_id": "CT-0006",
       "turns": 1,
       "spans": 50,
-      "e2e_latency_ms": 413.2,
+      "e2e_latency_ms": 421.7,
       "llm_calls": 0,
       "tool_calls": 8,
       "prompt_tokens": 0,
@@ -239,11 +239,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "463ad4c5-7f52-46c9-ae52-689a12022a86",
+      "run_id": "36275177-59c3-42ba-9c46-05f5889cc662",
       "contact_id": "CT-0007",
       "turns": 1,
       "spans": 17,
-      "e2e_latency_ms": 130.9,
+      "e2e_latency_ms": 136.9,
       "llm_calls": 0,
       "tool_calls": 1,
       "prompt_tokens": 0,
@@ -251,11 +251,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "5e1eb4f8-7390-4d57-8294-aee1317e59c0",
+      "run_id": "a549ba75-42b2-4805-b3ce-6f92c171c164",
       "contact_id": "CT-0008",
       "turns": 1,
       "spans": 17,
-      "e2e_latency_ms": 137.8,
+      "e2e_latency_ms": 137.4,
       "llm_calls": 0,
       "tool_calls": 1,
       "prompt_tokens": 0,
@@ -263,11 +263,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "aa1ae86c-6f51-4d62-8768-951c25f5bde5",
+      "run_id": "b3c8ecf7-43d3-4494-8045-637b1d71c29c",
       "contact_id": "CT-0009",
       "turns": 1,
       "spans": 12,
-      "e2e_latency_ms": 93.7,
+      "e2e_latency_ms": 97.9,
       "llm_calls": 0,
       "tool_calls": 0,
       "prompt_tokens": 0,
@@ -275,11 +275,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "068f69cb-4da7-4892-9564-e4986179f283",
+      "run_id": "efe015b1-9584-4754-8f29-6741a8058984",
       "contact_id": "CT-0010",
       "turns": 1,
       "spans": 12,
-      "e2e_latency_ms": 94.8,
+      "e2e_latency_ms": 93.2,
       "llm_calls": 0,
       "tool_calls": 0,
       "prompt_tokens": 0,
@@ -287,11 +287,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "25de9951-1014-4f9d-996c-617f08fdf4c7",
+      "run_id": "b32b5b10-3fb2-4440-9a4c-c8271c0b6633",
       "contact_id": "CT-0011",
       "turns": 1,
       "spans": 37,
-      "e2e_latency_ms": 321.0,
+      "e2e_latency_ms": 327.3,
       "llm_calls": 0,
       "tool_calls": 5,
       "prompt_tokens": 0,
@@ -299,11 +299,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "94fbacf2-ffec-4d91-a56b-569e414582a5",
+      "run_id": "51609169-5d06-4fb8-b7b6-94b200e328ee",
       "contact_id": "CT-0012",
       "turns": 1,
       "spans": 31,
-      "e2e_latency_ms": 260.8,
+      "e2e_latency_ms": 258.6,
       "llm_calls": 0,
       "tool_calls": 2,
       "prompt_tokens": 0,
@@ -311,11 +311,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "764d5b47-8f4e-4fd4-b17d-b7aed91b3e64",
+      "run_id": "272d2565-ea5c-454f-bab5-30843f1b14dc",
       "contact_id": "CT-0013",
       "turns": 2,
       "spans": 66,
-      "e2e_latency_ms": 545.0,
+      "e2e_latency_ms": 548.7,
       "llm_calls": 0,
       "tool_calls": 6,
       "prompt_tokens": 0,
@@ -323,11 +323,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "912db4c1-612c-4c8f-a40e-f749ecbf5541",
+      "run_id": "9f4f5e2c-fca6-4645-8ac3-7ea3cda89a9c",
       "contact_id": "CT-0014",
       "turns": 1,
       "spans": 47,
-      "e2e_latency_ms": 426.6,
+      "e2e_latency_ms": 458.9,
       "llm_calls": 0,
       "tool_calls": 8,
       "prompt_tokens": 0,
@@ -337,7 +337,7 @@
   ],
   "quality": {
     "source": "reports/eval_report.json",
-    "generated_at": "2026-09-28T17:11:50+00:00",
+    "generated_at": "2026-09-28T17:49:19+00:00",
     "cases": 18,
     "agent_engine": "rules/templates",
     "intent_accuracy": 1.0,

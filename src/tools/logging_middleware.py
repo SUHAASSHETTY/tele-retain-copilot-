@@ -34,7 +34,7 @@ _log_path: Path = TOOL_CALLS_LOG
 
 
 def set_log_path(path: Path) -> None:
-    """Redirect the log (tests use a temp file so committed evidence is untouched)."""
+    """Redirect the log (tests use a temp file so the project's evidence is untouched)."""
     global _log_path
     _log_path = path
 

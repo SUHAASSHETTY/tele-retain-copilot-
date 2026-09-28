@@ -36,7 +36,7 @@ chroma/
 .idea/
 .vscode/
 
-# NOTE: evidence under traces/, logs/, reports/ IS committed — do not ignore it.
+# NOTE: evidence under traces/, logs/, reports/ is part of the deliverable — do not ignore it.
 
 # LangGraph checkpointer (short-term memory, regenerable)
 data/checkpoints.db

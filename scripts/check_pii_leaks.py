@@ -1,4 +1,4 @@
-"""Grep-style PII leak check over committed evidence. Exits 1 on any finding.
+"""Grep-style PII leak check over the project's evidence. Exits 1 on any finding.
 
 Scans logs/, traces/ and reports/ (text files and Parquet) for:
 - every synthetic customer_id, account_number, phone, email and full name in data/synthetic/telecom.db

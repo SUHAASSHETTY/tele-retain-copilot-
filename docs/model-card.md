@@ -23,7 +23,7 @@ human approval interrupt (`src/agents/human_loop.py::human_approval`).
 | PII detection | Presidio + spaCy `en_core_web_sm` (local) + custom recognizers | `src/guardrails/pii.py::presidio_analyzer` | Output guard and masking |
 | Deterministic fallback | Rules / templates | `src/agents/intent_agent.py::classify_rules`, `src/agents/resolution_agent.py::template_message`, `src/tools/rag_tool.py::HeuristicJudge` | Used when Gemini is unavailable or disabled; every use is labelled in the engine log |
 
-**Important: which engine produced the committed evidence.** All committed evidence (sample runs, traces,
+**Important: which engine produced the included evidence.** All included evidence (sample runs, traces,
 eval, red team) was generated in deterministic mode, with no Gemini calls. The configured model was unusable
 for the development key: 404 on `gemini-2.5-flash`, and free-tier quota of 20 requests/day/model on
 `gemini-3.8-flash` (see `docs/failure-analysis.md` F5). The reported quality numbers therefore describe the

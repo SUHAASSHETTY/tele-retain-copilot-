@@ -1,6 +1,6 @@
 # Risk register: Customer Service & Retention Copilot (BC-AAIE-HACK-17)
 
-Scope: the synthetic-data prototype in this repository. Categories use the OWASP Top 10 for LLM
+Scope: the synthetic-data prototype in this project. Categories use the OWASP Top 10 for LLM
 Applications (2025) ids and the NIST AI RMF 1.0 core functions (GOVERN / MAP / MEASURE / MANAGE).
 Likelihood and impact are the team's qualitative judgement for a production deployment of this
 design (H / M / L). Residual risk is after the cited controls.
@@ -198,7 +198,7 @@ Owners are roles, because this is a prototype with no staffed organisation:
   - Ambiguity triggers one clarifying question, then escalation: `src/agents/human_loop.py::clarify`.
   - Customers are told they are talking to an AI and can ask for a human: `src/cli.py::AI_DISCLOSURE`.
   - Limitations are documented in `docs/model-card.md`.
-- **Residual: Medium.** Agent training and an operating procedure for reviewing drafts are outside this repository.
+- **Residual: Medium.** Agent training and an operating procedure for reviewing drafts are outside this project.
 
 ### R11: Long-term memory poisoning
 - **Likelihood / impact.** M / M.

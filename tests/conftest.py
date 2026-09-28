@@ -1,5 +1,5 @@
 """Shared fixtures. Tests never need GOOGLE_API_KEY (Gemini is disabled or stubbed) and never write
-to the committed evidence logs: tool and audit logs are redirected to a temp dir per test."""
+to the project's evidence logs: tool and audit logs are redirected to a temp dir per test."""
 
 from __future__ import annotations
 

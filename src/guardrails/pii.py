@@ -12,6 +12,7 @@ built-in email, phone, card, IBAN and SSN recognizers.
 from __future__ import annotations
 
 import re
+from pathlib import Path
 from functools import lru_cache
 from typing import Any
 
@@ -92,10 +93,23 @@ def _mask_presidio(text: str) -> str:
     return text
 
 
+_PROJECT_PREFIX = str(Path(__file__).resolve().parents[2]) + "/"
+_TMP_RE = re.compile(r"/(?:private/)?(?:tmp|var/folders)/[^\s\"'\\,;)]*")
+_HOME_RE = re.compile(r"/(?:Users|home)/[^/\s\"'\\]+")
+
+
+def strip_local_paths(text: str) -> str:
+    """Local machine paths never reach logs/traces: project root -> relative, home -> ~, temp -> <tmp>."""
+    if not text or "/" not in text:
+        return text
+    return _HOME_RE.sub("~", _TMP_RE.sub("<tmp>", text.replace(_PROJECT_PREFIX, "")))
+
+
 def mask(text: str, *, amounts: bool = True, use_presidio: bool = False) -> str:
-    """Mask identifiers (and, by default, money amounts) in free text."""
+    """Mask identifiers (and, by default, money amounts) and strip local paths in free text."""
     if not text:
         return text
+    text = strip_local_paths(text)
     if use_presidio:
         text = _mask_presidio(text)
     return _mask_text(text, amounts=amounts)

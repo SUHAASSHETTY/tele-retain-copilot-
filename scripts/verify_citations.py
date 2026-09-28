@@ -1,9 +1,9 @@
 """Citation-resolves check for docs/*.md. Exits 1 if any citation does not resolve.
 
 Checked citation types (anything in a doc that points at evidence):
-  run_id      UUIDs                      -> must appear in a committed artifact (logs/, traces/, reports/, evidence/)
-  trace_id    32-hex ids                 -> must be a trace id in a committed span parquet
-  span_id     16-hex ids                 -> must be a span id in a committed span parquet
+  run_id      UUIDs                      -> must appear in a project artifact (logs/, traces/, reports/, evidence/)
+  trace_id    32-hex ids                 -> must be a trace id in a span parquet in the project
+  span_id     16-hex ids                 -> must be a span id in a span parquet in the project
   log line    `path/file.jsonl:L12`      -> file exists, has that line, and (if the doc gives `run_id` on the
                                              same bullet/line) the record carries that run_id
   file path   `src/...`, `scripts/...`, `logs/...`, `reports/...`, `traces/...`, `evidence/...`, `docs/...`,
@@ -12,6 +12,7 @@ Checked citation types (anything in a doc that points at evidence):
   code symbol `src/x.py::name` or `src/x.py::Class.method` -> file defines it (def / class / assignment)
   code line   `src/x.py:L12`             -> file has that line
   doc anchor  [text](other.md#heading)   -> the target doc has that heading
+  link/image  [text](path), ![alt](path) -> relative path exists (absolute local paths are rejected)
 
 Run: python -m scripts.verify_citations [docs/file.md ...]
 """
@@ -35,12 +36,13 @@ SPAN_RE = re.compile(r"(?<![0-9a-f-])[0-9a-f]{16}(?![0-9a-f-])")
 LINE_RE = re.compile(r"`?((?:logs|reports|evidence|traces)/[\w./-]+\.(?:jsonl|log|json|csv|md)):L(\d+)`?")
 PATH_RE = re.compile(r"`((?:src|scripts|logs|reports|traces|evidence|docs|data|tests|mcp_server)/[\w./*-]+)`")
 POLICY_RE = re.compile(r"POL-[A-Z]{3}-\d{3} §\d+\.\d+")
+LINK_RE = re.compile(r"!?\[[^\]]*\]\(([^)#\s]+)(?:#[^)]*)?\)")  # markdown images and relative links
 ANCHOR_RE = re.compile(r"\]\(([\w./-]*\.md)?#([\w-]+)\)")
 CODE_ROOTS = r"(?:src|scripts|mcp_server|tests)"
 
 
 def slug(heading: str) -> str:
-    """GitHub-style heading anchor."""
+    """Standard Markdown heading anchor (lower-case, punctuation removed, spaces to hyphens)."""
     h = re.sub(r"[`*_]", "", heading.strip().lower())
     return re.sub(r"\s", "-", re.sub(r"[^\w\s-]", "", h))
 SYMBOL_RE = re.compile(rf"({CODE_ROOTS}/[\w./-]+\.py)::([A-Za-z_][\w.]*)")
@@ -99,7 +101,7 @@ def check_doc(path: Path) -> tuple[int, list[str]]:
     for rid in sorted(set(UUID_RE.findall(text))):
         checked += 1
         if rid not in corpus and rid not in span_runs:
-            errors.append(f"run_id {rid} not found in any committed artifact")
+            errors.append(f"run_id {rid} not found in any project artifact")
     no_uuid = UUID_RE.sub("", text)
     for tid in sorted(set(TRACE_RE.findall(no_uuid))):
         checked += 1
@@ -154,6 +156,15 @@ def check_doc(path: Path) -> tuple[int, list[str]]:
         f = ROOT_DIR / file
         if not f.exists() or int(n) > len(f.read_text().splitlines()):
             errors.append(f"{file}:L{n}: line does not exist")
+
+    for target in sorted(set(LINK_RE.findall(text))):
+        if re.match(r"^[a-z]+://|^mailto:", target):
+            continue
+        checked += 1
+        if target.startswith("/") or re.match(r"^[A-Za-z]:\\", target):
+            errors.append(f"link/image `{target}` uses an absolute local path")
+        elif not (path.parent / target).exists():
+            errors.append(f"link/image `{target}` does not exist")
 
     for target, anchor in sorted(set(ANCHOR_RE.findall(text))):
         checked += 1

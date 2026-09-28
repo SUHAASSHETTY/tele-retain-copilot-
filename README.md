@@ -24,40 +24,10 @@ All data is synthetic, and Google Gemini is the only LLM provider.
 
 ## Architecture
 
-```mermaid
-flowchart TD
-    C([Customer turn]) --> IG[input_guard<br/>injection / cross-customer / toxicity / length<br/>card redaction + quarantine]
-    IG --> CM[context_manager<br/>compress history, extract session facts,<br/>select long-term memories]
-    CM --> SUP{supervisor<br/>Gemini proposes, route_from_supervisor disposes}
-    SUP -->|intent unknown| INT[intent_agent]
-    SUP -->|needs account| ACC[account_agent]
-    SUP -->|needs policy| POL[policy_retrieval_agent]
-    SUP -->|cancellation / billing error| OFF[retention_offer_agent]
-    INT --> SUP
-    ACC --> SUP
-    POL --> SUP
-    OFF --> SUP
-    SUP -->|ambiguous / out of scope| CLA[clarify]
-    SUP -->|step limit / tool failure| ESC[escalate<br/>ticket via MCP]
-    SUP -->|ready| RES[resolution_agent<br/>decide_outcome + cited draft]
-    RES -->|above threshold| RA[request_approval] --> HA[human_approval<br/>LangGraph interrupt]
-    RES -->|escalate| ESC
-    CLA -->|still unclear| ESC
-    RES --> MW
-    CLA --> MW
-    HA --> MW
-    ESC --> MW[memory_writer<br/>LangMem long-term memory]
-    MW --> OG[output_guard<br/>PII masking via Presidio, offer-limit check,<br/>citation check, risk tier]
-    OG --> R([Reply])
+![Architecture: LangGraph copilot with guardrails, supervisor, workers, MCP server, RAG, memory and Phoenix tracing](docs/assets/architecture.png)
 
-    ACC -. stdio MCP .-> MCP[(mcp_server<br/>get_account, get_billing_history,<br/>check_offer_eligibility,<br/>create_escalation_ticket,<br/>policy://catalog, plans://catalog)]
-    OFF -. stdio MCP .-> MCP
-    ESC -. stdio MCP .-> MCP
-    POL -. tool .-> RAG[(policy_rag<br/>retrieve, grade, rewrite, cite<br/>Chroma + MiniLM)]
-    SUP -. checkpoint .-> CP[(AsyncSqliteSaver<br/>short-term memory)]
-    MW -. store .-> LTM[(LangMem over AsyncSqliteStore<br/>per-customer namespace)]
-    OG -. spans .-> PHX[(Arize Phoenix :6006<br/>masked OpenInference spans)]
-```
+The diagram is a portable PNG ([SVG version](docs/assets/architecture.svg)). Its source is
+`docs/assets/architecture.mmd`; to re-render both files, run `python -m scripts.render_architecture`.
 
 Key design choices:
 
@@ -86,7 +56,7 @@ Setup notes:
   returns 404 for new API users. The free tier allows about 20 requests per day per model, so set `GEMINI_RPM`
   and expect graceful fallback to deterministic rules when quota runs out.
 - **First run.** The first run downloads the local `all-MiniLM-L6-v2` embedding model.
-- **Synthetic data.** The data is committed. To regenerate it: `python -m scripts.generate_synthetic_data`
+- **Synthetic data.** The generated data is included. To regenerate it: `python -m scripts.generate_synthetic_data`
   (seed 17, deterministic).
 
 ## Run the copilot
@@ -214,19 +184,19 @@ curl -N -X POST localhost:8000/v1/contacts/stream -H 'X-Customer-Id: CUST-000397
 | **AC-10** guardrails in the I/O path; audit trail | `src/guardrails/nodes.py` (first and last graph nodes), `src/audit/audit_middleware.py` → `logs/agent_actions.jsonl` |
 | **AC-11** governance pack, each claim citing a control | `docs/risk-register.md`, `docs/model-card.md`, `docs/compliance.md`, `docs/output-risk.md`, checked by `scripts/verify_citations.py` |
 | **AC-12** DeepEval report and agent tests | `scripts/run_eval.py` → `reports/eval_report.json`, `traces/eval_spans.parquet`; `tests/test_routing.py`, `tests/test_loops.py`, `tests/test_tool_contracts.py` |
-| **NFR-01** no secrets | `.env.example`, `.gitignore` (covers `.env`), `src/config.py` |
-| **NFR-02** single run command and single regeneration command | `src/cli.py`, `scripts/regenerate_evidence.py`, committed inputs `data/sample_contacts.jsonl`, `data/golden_set.jsonl` |
+| **NFR-01** no secrets | `.env.example` (placeholders only; `.env` is excluded by the project's ignore rules), `src/config.py` |
+| **NFR-02** single run command and single regeneration command | `src/cli.py`, `scripts/regenerate_evidence.py`, included inputs `data/sample_contacts.jsonl`, `data/golden_set.jsonl` |
 | **NFR-03** untrusted text quarantined | `src/context/quarantine.py::untrusted_prompt`, `tests/test_context.py` |
 | **NFR-04** async, timeouts, retries, graceful degradation | `src/resilience.py::resilient_call`, `src/llm.py::llm_preflight`, `tests/test_loops.py` |
 | **NFR-05** synthetic data, masked everywhere | `scripts/generate_synthetic_data.py`, `src/guardrails/pii.py::mask_obj`, `scripts/check_pii_leaks.py` |
-| **NFR-06** evidence produced by committed code | `scripts/regenerate_evidence.py` → `reports/regenerate_summary.json`; citations checked by `scripts/verify_citations.py` |
+| **NFR-06** evidence produced by project code | `scripts/regenerate_evidence.py` → `reports/regenerate_summary.json`; citations checked by `scripts/verify_citations.py` |
 
 Other docs: `docs/failure-analysis.md`, `docs/risk-register.md`, `docs/model-card.md`,
 `docs/compliance.md`, `docs/output-risk.md`.
 
 ## Known limitations
 
-- **Evidence engine.** The committed evidence was generated in deterministic mode (rules/templates, no
+- **Evidence engine.** The included evidence was generated in deterministic mode (rules/templates, no
   Gemini calls) because the configured Gemini models were unusable for the development key.
   - Quality numbers reflect the deterministic engine and controls, not Gemini's language quality.
   - The traces contain no LLM spans, so token cost is unmeasured.

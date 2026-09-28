@@ -22,11 +22,11 @@ os.environ.setdefault("HF_HUB_DISABLE_PROGRESS_BARS", "1")
 os.environ.setdefault("TRANSFORMERS_VERBOSITY", "error")
 os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 
-# --- Repository paths (scored layout; do not rename) --------------------------
+# --- Project paths (scored layout; do not rename) --------------------------
 DATA_DIR = ROOT_DIR / "data"
 SYNTHETIC_DIR = DATA_DIR / "synthetic"
 POLICY_CORPUS_DIR = DATA_DIR / "policy_corpus"
-RUNTIME_DIR = DATA_DIR / "runtime"  # SQLite checkpoints, memory store, vector index (gitignored)
+RUNTIME_DIR = DATA_DIR / "runtime"  # SQLite checkpoints, memory store, vector index (local runtime state, rebuilt on demand)
 SAMPLE_CONTACTS_PATH = DATA_DIR / "sample_contacts.jsonl"
 GOLDEN_SET_PATH = DATA_DIR / "golden_set.jsonl"
 

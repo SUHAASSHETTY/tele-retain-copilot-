@@ -26,7 +26,7 @@ from langchain_core.tools import StructuredTool
 from langgraph.graph import END, START, StateGraph
 from pydantic import BaseModel, Field
 
-from src.config import POLICY_CORPUS_DIR, RUNTIME_DIR, settings
+from src.config import POLICY_CORPUS_DIR, ROOT_DIR, RUNTIME_DIR, settings
 from src.llm import llm_available, structured_call
 from src.resilience import ExternalCallFailed
 from src.tools.logging_middleware import log_tool_call
@@ -155,7 +155,7 @@ def get_collection():
 def build_index() -> dict:
     get_collection.cache_clear()
     col = get_collection()
-    return {"collection": COLLECTION, "chunks": col.count(), "path": str(CHROMA_DIR),
+    return {"collection": COLLECTION, "chunks": col.count(), "path": str(CHROMA_DIR.relative_to(ROOT_DIR)),
             "fingerprint": col.metadata.get("fingerprint")}
 
 

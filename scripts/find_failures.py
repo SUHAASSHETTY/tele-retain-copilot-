@@ -1,4 +1,4 @@
-"""Mine committed evidence for REAL failures and print citable candidates.
+"""Mine the project's evidence for REAL failures and print citable candidates.
 
 Sources and what counts as a candidate:
   traces/phoenix_spans.parquet, traces/eval_spans.parquet

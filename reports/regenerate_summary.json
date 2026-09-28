@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-28T17:14:41+00:00",
+  "generated_at": "2026-09-28T17:52:05+00:00",
   "generator": "scripts/regenerate_evidence.py",
   "mode": "deterministic",
   "status": "PASS",
-  "total_seconds": 303.1,
+  "total_seconds": 304.0,
   "steps": [
     {
       "step": 1,
@@ -16,50 +16,50 @@
       "step": 2,
       "name": "index",
       "status": "ok",
-      "seconds": 2.1,
-      "detail": "indexed 59 clauses into 'policy_clauses' (fingerprint c82c6734fcab778f) at /Users/suhaas/Documents/Hack/data/r"
+      "seconds": 2.2,
+      "detail": "indexed 59 clauses into 'policy_clauses' (fingerprint c82c6734fcab778f) at data/runtime/chroma"
     },
     {
       "step": 3,
       "name": "phoenix",
       "status": "ok",
-      "seconds": 9.2,
+      "seconds": 9.4,
       "detail": "http://localhost:6006"
     },
     {
       "step": 4,
       "name": "tools",
       "status": "ok",
-      "seconds": 18.2,
+      "seconds": 17.6,
       "detail": "plaintext PII leak check over 200 identifiers: PASS"
     },
     {
       "step": 5,
       "name": "contacts",
       "status": "ok",
-      "seconds": 30.2,
+      "seconds": 33.1,
       "detail": "14/14 contacts matched the expected outcome; results -> reports/sample_run_results.jsonl"
     },
     {
       "step": 6,
       "name": "redteam",
       "status": "ok",
-      "seconds": 17.5,
+      "seconds": 18.7,
       "detail": "-> reports/redteam_results.json"
     },
     {
       "step": 7,
       "name": "eval",
       "status": "ok",
-      "seconds": 57.2,
+      "seconds": 59.7,
       "detail": "-> reports/eval_report.json"
     },
     {
       "step": 8,
       "name": "tests",
       "status": "ok",
-      "seconds": 45.2,
-      "detail": "104 passed in 34.56s"
+      "seconds": 46.7,
+      "detail": "104 passed in 35.61s"
     },
     {
       "step": 9,
@@ -72,14 +72,14 @@
       "step": 10,
       "name": "dashboard",
       "status": "ok",
-      "seconds": 17.5,
-      "detail": "reports/dashboard.png: Phoenix UI screenshot of http://localhost:6006/projects/UHJvamVjdDoyMg=="
+      "seconds": 16.2,
+      "detail": "reports/dashboard.png: Phoenix UI screenshot of http://localhost:6006/projects/UHJvamVjdDoyNg=="
     },
     {
       "step": 11,
       "name": "benchmark",
       "status": "ok",
-      "seconds": 71.5,
+      "seconds": 65.9,
       "detail": "-> reports/optimization_note.md (outcomes identical: True)"
     },
     {
@@ -93,7 +93,7 @@
       "step": 13,
       "name": "reconcile",
       "status": "ok",
-      "seconds": 2.3,
+      "seconds": 2.2,
       "detail": "PASS -> reports/tool_reconciliation.json"
     },
     {
@@ -108,7 +108,7 @@
       "name": "citations",
       "status": "ok",
       "seconds": 0.7,
-      "detail": "PASS: 337 citation(s) across 6 doc(s)"
+      "detail": "PASS: 341 citation(s) across 6 doc(s)"
     }
   ]
 }

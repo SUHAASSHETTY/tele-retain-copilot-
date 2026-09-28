@@ -4,7 +4,7 @@
 - This is a hackathon prototype running on synthetic data only. No real personal data is processed and the
   system is not deployed.
 - The mapping records which obligations would plausibly apply to a production deployment of this design,
-  and what the repository already provides as evidence.
+  and what the project already provides as evidence.
 - This is an engineering self-assessment, **not legal advice**. Applicability must be confirmed by counsel
   for the actual deployer, jurisdiction and use.
 
@@ -33,9 +33,9 @@
 | DPDP Act 2023 | s.4-s.6: lawful purpose, notice and consent | Not applicable to synthetic data; no consent or notice flow exists | n/a | Gap before real data |
 | DPDP Act 2023 | s.6(1) data limited to what is necessary (minimisation) | Tools return masked identifiers; workers see only scoped context | `mcp_server/server.py::get_account`, `src/context/isolate.py::view` | Implemented |
 | DPDP Act 2023 | s.8(3): completeness and accuracy of data used for decisions | Decisions use the system of record through tools, never model memory; policy checks are deterministic | `mcp_server/server.py::evaluate_offer` | Implemented (synthetic source) |
-| DPDP Act 2023 | s.8(5): reasonable security safeguards to prevent breach | Masking in every log and trace, access control on every tool, PII scan on every regeneration, no secrets committed | `src/guardrails/pii.py::mask_obj`, `mcp_server/server.py::_authorized_call`, `scripts/check_pii_leaks.py`, `.gitignore` | Implemented for the prototype |
+| DPDP Act 2023 | s.8(5): reasonable security safeguards to prevent breach | Masking in every log and trace, access control on every tool, PII scan on every regeneration, no secrets in the project (only `.env.example` placeholders) | `src/guardrails/pii.py::mask_obj`, `mcp_server/server.py::_authorized_call`, `scripts/check_pii_leaks.py`, `.env.example` | Implemented for the prototype |
 | DPDP Act 2023 | s.8(6): intimate personal data breaches to the Board and affected persons | No breach-notification process | n/a | Gap |
-| DPDP Act 2023 | s.8(7) / s.12: erase data when the purpose is served or on request | Per-customer erasure of long-term memory; runtime stores are separate, gitignored files | `src/memory/long_term.py::LongTermMemory.forget_customer` | Partial: no retention schedule or checkpoint purge job |
+| DPDP Act 2023 | s.8(7) / s.12: erase data when the purpose is served or on request | Per-customer erasure of long-term memory; runtime stores are separate local files, excluded from the project package | `src/memory/long_term.py::LongTermMemory.forget_customer` | Partial: no retention schedule or checkpoint purge job |
 | DPDP Act 2023 | s.13: grievance redressal | Complaints and escalations create tickets routed to human queues | `src/agents/human_loop.py::escalate`, `mcp_server/server.py::create_escalation_ticket` | Partial: no published grievance officer |
 
 **What would change for a real deployment.**

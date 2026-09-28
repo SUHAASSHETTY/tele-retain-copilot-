@@ -25,7 +25,7 @@ async def _reject(_request: dict) -> dict:
 
 
 def isolate_logs(logs_dir: Path) -> None:
-    """Send tool/audit logs to a scratch dir so tests never touch committed evidence."""
+    """Send tool/audit logs to a scratch dir so tests never touch the project's evidence."""
     logs_dir.mkdir(parents=True, exist_ok=True)
     logging_middleware.set_log_path(logs_dir / "tool_calls.jsonl")
     audit_middleware.set_log_path(logs_dir / "agent_actions.jsonl")
