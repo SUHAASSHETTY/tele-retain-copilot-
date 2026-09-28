@@ -1,0 +1,39 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Python bytecode / packaging
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Tool caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+.deepeval/
+.ipynb_checkpoints/
+
+# Runtime state (regenerable): SQLite checkpoints, memory store, vector index, Phoenix DB
+data/runtime/
+.phoenix/
+chroma/
+*.sqlite-journal
+*.db-wal
+*.db-shm
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# NOTE: evidence under traces/, logs/, reports/ IS committed — do not ignore it.

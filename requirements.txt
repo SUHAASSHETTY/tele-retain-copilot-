@@ -1,0 +1,67 @@
+# Customer Service & Retention Copilot — pinned dependencies (Python 3.11+)
+# Resolved and verified together on Python 3.11 with `pip check` clean.
+# Install: pip install -r requirements.txt && playwright install chromium
+
+# --- Agent framework -------------------------------------------------------
+langgraph==1.2.12
+langgraph-checkpoint==4.2.0
+langgraph-checkpoint-sqlite==3.1.1   # AsyncSqliteSaver (short-term) + AsyncSqliteStore (long-term)
+aiosqlite==0.22.1
+sqlite-vec==0.1.9                    # vector index for AsyncSqliteStore semantic search
+langchain-core==1.6.5
+pydantic==2.13.5
+
+# --- LLM provider: Google Gemini ONLY ----------------------------------------
+langchain-google-genai==4.4.0
+google-genai==2.25.0
+
+# --- Memory ------------------------------------------------------------------
+langmem==0.0.30
+
+# --- MCP ---------------------------------------------------------------------
+mcp==1.30.0                          # must stay <2: langchain-mcp-adapters 0.3.2 requires mcp<2
+langchain-mcp-adapters==0.3.2
+
+# --- Retrieval (local) -------------------------------------------------------
+chromadb==1.5.9
+sentence-transformers==6.1.0         # all-MiniLM-L6-v2 embeddings, local
+
+# --- Observability -----------------------------------------------------------
+# arize-phoenix is pinned to 19.17.0 on purpose:
+#   * >=19.18 uses a MappingProxyType dataclass default that crashes on Python 3.11
+#   * >=20.7 requires mcp>=2 (via fastmcp-slim 4), conflicting with langchain-mcp-adapters
+arize-phoenix==19.17.0
+arize-phoenix-otel==0.17.1
+arize-phoenix-client==3.5.0
+openinference-instrumentation-langchain==0.1.76
+opentelemetry-sdk==1.45.0
+opentelemetry-exporter-otlp==1.45.0
+
+# --- Evaluation & tests ------------------------------------------------------
+deepeval==4.2.6                      # judge = deepeval.models.GeminiModel, eval_mode="llm"
+pytest==9.1.1
+pytest-asyncio==1.4.0
+
+# --- Security / PII ----------------------------------------------------------
+presidio-analyzer==2.2.364
+presidio-anonymizer==2.2.364
+en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
+
+# --- Config / resilience -----------------------------------------------------
+python-dotenv==1.2.3
+tenacity==8.5.0
+
+# --- Reporting / dashboard ---------------------------------------------------
+pandas==3.0.6
+pyarrow==25.0.1
+matplotlib==3.11.2
+playwright==1.63.0
+
+# --- Optional API (bonus) ----------------------------------------------------
+fastapi==0.141.1
+uvicorn==0.54.0
+
+# --- Transitive pins required for a consistent resolve -----------------------
+# deepeval 4.2.6 requires click<8.4; huggingface-hub>=1.16 requires click>=8.4.
+huggingface-hub==1.15.0
+click==8.3.3
