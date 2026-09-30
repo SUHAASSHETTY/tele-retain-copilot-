@@ -1,9 +1,9 @@
 reports/golden_signals.json <- traces/phoenix_spans.parquet
   latency thinking         {'count': 0, 'p50_ms': None, 'p95_ms': None, 'mean_ms': None}
-  latency acting           {'count': 361, 'p50_ms': 5.9, 'p95_ms': 258.6, 'mean_ms': 35.0}
-  latency tool             {'count': 64, 'p50_ms': 19.0, 'p95_ms': 54.0, 'mean_ms': 25.4}
-  latency end_to_end_turn  {'count': 15, 'p50_ms': 294.5, 'p95_ms': 432.9, 'mean_ms': 274.3}
-  latency end_to_end_turn_warm {'count': 14, 'p50_ms': 283.0, 'p95_ms': 434.7, 'mean_ms': 267.9}
+  latency acting           {'count': 361, 'p50_ms': 5.5, 'p95_ms': 260.0, 'mean_ms': 34.9}
+  latency tool             {'count': 64, 'p50_ms': 19.7, 'p95_ms': 54.4, 'mean_ms': 24.6}
+  latency end_to_end_turn  {'count': 15, 'p50_ms': 292.3, 'p95_ms': 436.4, 'mean_ms': 275.7}
+  latency end_to_end_turn_warm {'count': 14, 'p50_ms': 279.6, 'p95_ms': 437.5, 'mean_ms': 270.7}
   traffic 14 runs, 15 turns, 478 spans, 0 LLM / 53 tool calls
   errors  {'error_spans': 0, 'error_span_rate': 0.0, 'tool_calls_not_ok': 0, 'tool_status_counts': {'ok': 53}, 'tool_status_source': 'tool_middleware.* spans (logging middleware)'}
   tokens  {'prompt': 0, 'completion': 0, 'total': 0, 'llm_spans': 0, 'per_llm_call_mean': None} | cost $**.** total
@@ -12,70 +12,3 @@ reports/golden_signals.json <- traces/phoenix_spans.parquet
   NOTE: hallucination: judged on only 2 of 18 cases (16 judge calls failed: quota / 503); treat the rate as indicative only.
   NOTE: faithfulness: not run (RuntimeError: judge unavailable and this judge prompt is not cached (no score invented)).
   NOTE: answer_relevancy: not run (RuntimeError: judge unavailable and this judge prompt is not cached (no score invented)).
-
---- stderr ---
-I0928 23:20:09.018786  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019212  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019216  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019218  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019220  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019222  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019224  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019226  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019227  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019230  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019231  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019233  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019235  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019236  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019238  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019239  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019241  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019242  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019245  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019246  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019248  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019249  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019251  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019253  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019254  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019256  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019257  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019259  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019260  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019262  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019263  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019265  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019267  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019268  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019270  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019271  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019274  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019275  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019277  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019278  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019280  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019282  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019283  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019285  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019286  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019288  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019289  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019291  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019292  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019294  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019295  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019297  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019298  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019300  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019301  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019303  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019305  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019306  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019308  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019309  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019311  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019312  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019314  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019315  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)
-I0928 23:20:09.019317  595278 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(17, generation: 1)

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T17:51:59+00:00",
+  "generated_at": "2026-09-29T11:30:58+00:00",
   "generator": "scripts/reconcile_tools.py",
   "status": "PASS",
   "registry": {
@@ -12,7 +12,9 @@
   },
   "code_calls": {
     "get_account": [
-      "src/agents/account_agent.py"
+      "src/agents/account_agent.py",
+      "src/api/app.py",
+      "src/cli.py"
     ],
     "get_billing_history": [
       "src/agents/account_agent.py"

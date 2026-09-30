@@ -88,7 +88,44 @@ async def scenarios() -> bool:
                               json={"message": "What's on this bill?", "session_id": "API-DEMO-2"})
         log(f"    <- {r.status_code} {r.json()}")
         ok &= r.status_code == 403
+
+        log("\n[5] Browser UI: GET / , /v1/samples , /v1/account")
+        page = await client.get("/")
+        samples = (await client.get("/v1/samples")).json()
+        acct = await client.get("/v1/account", headers={"X-Customer-Id": samples[0]["customer_id"]})
+        log(f"    <- / {page.status_code} ({len(page.text)} bytes, title present: {'Retention Copilot' in page.text}); "
+            f"samples {len(samples)}; account {acct.status_code}: {acct.json()['lines'][0]}")
+        ok &= page.status_code == 200 and len(samples) > 0 and acct.status_code == 200
+    ok &= await browser_walkthrough()
     return ok
+
+
+async def browser_walkthrough() -> bool:
+    """Drive the web UI in headless Chromium: sample -> send -> approval card -> approve -> reply + citations."""
+    from playwright.async_api import async_playwright
+
+    from src.config import REPORTS_DIR
+    log("\n[6] Browser walkthrough (headless Chromium): 'half off' scenario with team-lead approval")
+    async with async_playwright() as p:
+        browser = await p.chromium.launch()
+        page = await browser.new_page(viewport={"width": 1280, "height": 1000})
+        await page.goto(BASE + "/")
+        await page.wait_for_function("document.querySelectorAll('#sample option').length > 1")
+        idx = await page.evaluate("[...document.querySelectorAll('#sample option')].findIndex(o => o.textContent.startsWith('cancellation at risk needs approval')) - 1")
+        await page.select_option("#sample", str(idx))
+        await page.wait_for_function("document.querySelector('#account pre').textContent.startsWith('Customer')")
+        await page.click("#send")
+        await page.wait_for_selector(".approval button.ok", timeout=60_000)
+        log("    approval card shown: " + (await page.inner_text(".approval h3")))
+        await page.click(".approval button.ok")
+        await page.wait_for_selector(".msg.bot .cites", timeout=60_000)
+        reply = await page.inner_text(".msg.bot")
+        log("    final reply shown with citations: " + " ".join(reply.split())[:200])
+        shot = REPORTS_DIR / "web_ui.png"
+        await page.screenshot(path=str(shot), full_page=True)
+        log(f"    screenshot -> reports/{shot.name}")
+        await browser.close()
+    return "approved" in reply.lower() and "POL-RET-003" in reply
 
 
 async def main() -> int:

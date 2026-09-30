@@ -56,6 +56,9 @@ en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_
 python-dotenv==1.2.3
 tenacity==8.5.0
 
+# --- Terminal UI --------------------------------------------------------------
+rich==14.3.4                         # CLI presentation (src/ui.py); also required by deepeval
+
 # --- Reporting / dashboard ---------------------------------------------------
 pandas==3.0.6
 pyarrow==25.0.1

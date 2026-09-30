@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retention Copilot</title>
+<style>
+  :root { --bg:#f5f7fb; --card:#fff; --ink:#1d2433; --muted:#667085; --line:#e4e7ec; --blue:#2f5bea;
+          --green:#12805c; --amber:#b54708; --red:#c01048; --cyan:#0e7090; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:15px/1.5 -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; background:var(--bg); color:var(--ink); }
+  header { background:#101828; color:#fff; padding:14px 24px; display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
+  header h1 { font-size:18px; margin:0; }
+  header span { color:#98a2b3; font-size:13px; }
+  main { display:grid; grid-template-columns: 320px 1fr; gap:18px; padding:18px; max-width:1280px; margin:0 auto; }
+  @media (max-width: 860px) { main { grid-template-columns: 1fr; } }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .card h2 { font-size:13px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); margin:0 0 10px; }
+  label { font-size:13px; color:var(--muted); display:block; margin:10px 0 4px; }
+  input, select, textarea { width:100%; font:inherit; padding:9px 10px; border:1px solid var(--line); border-radius:8px; background:#fff; }
+  textarea { resize:vertical; min-height:70px; }
+  button { font:inherit; border:0; border-radius:8px; padding:9px 14px; cursor:pointer; background:var(--blue); color:#fff; }
+  button.secondary { background:#eef2ff; color:var(--blue); }
+  button.ok { background:var(--green); } button.no { background:var(--red); }
+  button:disabled { opacity:.5; cursor:default; }
+  .row { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+  .notice { font-size:13px; color:var(--muted); margin-top:10px; }
+  #account pre { white-space:pre-wrap; font:12.5px/1.5 ui-monospace, Menlo, monospace; margin:0; color:#344054; }
+  #chat { display:flex; flex-direction:column; gap:12px; min-height:420px; }
+  .msg { max-width:88%; padding:10px 14px; border-radius:12px; white-space:pre-wrap; }
+  .you { align-self:flex-end; background:var(--blue); color:#fff; border-bottom-right-radius:4px; }
+  .bot { align-self:flex-start; background:#fff; border:1px solid var(--line); border-bottom-left-radius:4px; }
+  .badge { display:inline-block; font-size:12px; font-weight:600; padding:2px 8px; border-radius:999px; margin-bottom:6px; }
+  .b-green { background:#ecfdf3; color:var(--green); } .b-amber { background:#fffaeb; color:var(--amber); }
+  .b-red { background:#fff1f3; color:var(--red); } .b-cyan { background:#ecfdff; color:var(--cyan); }
+  .steps { align-self:flex-start; font-size:13px; color:var(--muted); border-left:3px solid var(--line); padding-left:10px; }
+  .steps div::before { content:"✔ "; color:var(--green); }
+  .cites { font-size:13px; margin-top:8px; border-top:1px dashed var(--line); padding-top:6px; color:#344054; }
+  .cites b { color:var(--cyan); font-weight:600; }
+  .notes { font-size:13px; color:var(--muted); margin-top:6px; }
+  .approval { align-self:stretch; background:#fffaeb; border:1px solid #fedf89; border-radius:12px; padding:12px 14px; }
+  .approval h3 { margin:0 0 6px; font-size:15px; color:var(--amber); }
+  footer { text-align:center; color:var(--muted); font-size:12px; padding:0 0 24px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Customer Service &amp; Retention Copilot</h1>
+  <span>AI assistant for telecom care · synthetic data only · identifiers masked</span>
+</header>
+<main>
+  <section>
+    <div class="card">
+      <h2>Customer</h2>
+      <label for="sample">Try a sample scenario</label>
+      <select id="sample"><option value="">Choose a scenario…</option></select>
+      <label for="cid">Customer ID (synthetic)</label>
+      <input id="cid" placeholder="CUST-000397" autocomplete="off">
+      <div class="row"><button class="secondary" id="loadAcct">Show account</button>
+        <button class="secondary" id="newConv">New conversation</button></div>
+      <div class="notice" id="who"></div>
+    </div>
+    <div class="card" id="account" style="margin-top:14px"><h2>Account (masked)</h2><pre>Enter a customer ID and press “Show account”.</pre></div>
+    <div class="card" style="margin-top:14px">
+      <h2>How it works</h2>
+      <div class="notice" style="margin-top:0">Each message passes a safety check, is classified, looks up the account through a
+        secure tool, searches company policy and checks any offer against policy limits. Offers above the approval limit wait
+        for a team lead. Every reply cites the policy clauses it relies on.</div>
+    </div>
+  </section>
+  <section class="card">
+    <h2>Conversation</h2>
+    <div id="chat"></div>
+    <label for="msg">Message</label>
+    <textarea id="msg" placeholder="e.g. Why is my bill higher this month?"></textarea>
+    <div class="row"><button id="send">Send</button><span class="notice" id="state"></span></div>
+    <div class="notice">You are talking to an AI assistant. It can make mistakes; offers above the approval limit are reviewed by a human.</div>
+  </section>
+</main>
+<footer>All customers, accounts and policies are synthetic. Customer identifiers are masked in every reply, log and trace.</footer>
+<script>
+const $ = (id) => document.getElementById(id);
+const chat = $("chat");
+let sessionId = null;
+const newSession = () => "WEB-" + Math.random().toString(36).slice(2, 10).toUpperCase();
+const maskId = (c) => /^CUST-\d{6}$/.test(c) ? "CUST-***" + c.slice(-3) : c;
+const badgeClass = { resolve: "b-green", offer: "b-green", offer_pending_approval: "b-amber", escalate: "b-cyan",
+                     clarify: "b-cyan", decline: "b-cyan", refuse: "b-red" };
+
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+function scroll() { chat.lastElementChild && chat.lastElementChild.scrollIntoView({ block: "end", behavior: "smooth" }); }
+function setBusy(b, text) { $("send").disabled = b; $("state").textContent = text || ""; }
+
+async function streamSSE(resp, steps) {
+  if (!resp.ok) { const t = await resp.text(); addError(resp.status + ": " + t); return; }
+  const reader = resp.body.getReader(); const dec = new TextDecoder(); let buf = "";
+  while (true) {
+    const { value, done } = await reader.read(); if (done) break;
+    buf += dec.decode(value, { stream: true });
+    let i;
+    while ((i = buf.indexOf("\n\n")) >= 0) {
+      const chunk = buf.slice(0, i); buf = buf.slice(i + 2);
+      const ev = (chunk.match(/^event: (.*)$/m) || [])[1]; const data = JSON.parse((chunk.match(/^data: (.*)$/m) || [])[1] || "{}");
+      if (ev === "node" && data.node !== "supervisor") { steps.appendChild(el("div", null, data.label)); scroll(); }
+      if (ev === "approval_required") showApproval(data);
+      if (ev === "resolution") showResolution(data);
+    }
+  }
+}
+
+function showResolution(d) {
+  const box = el("div", "msg bot");
+  box.appendChild(el("span", "badge " + (badgeClass[d.outcome] || "b-cyan"), d.outcome_label || d.outcome));
+  box.appendChild(el("div", null, d.reply || ""));
+  if (d.notes && d.notes.length) box.appendChild(el("div", "notes", d.notes.join(" ")));
+  if (d.citations && d.citations.length) {
+    const c = el("div", "cites"); c.appendChild(el("div", null, "Policy cited:"));
+    d.citations.forEach(x => { const line = el("div"); line.appendChild(el("b", null, x.id)); line.appendChild(document.createTextNode(" — " + x.title)); c.appendChild(line); });
+    box.appendChild(c);
+  }
+  chat.appendChild(box); scroll(); setBusy(false);
+}
+
+function showApproval(d) {
+  const card = el("div", "approval");
+  card.appendChild(el("h3", null, "⏳ Team-lead approval needed"));
+  card.appendChild(el("div", null, d.explanation));
+  card.appendChild(el("div", "notes", "Policy: " + ((d.request && d.request.policy_refs) || []).join(", ") + ". Approve = the offer is applied. Reject = the offer is withdrawn; the customer can still cancel."));
+  const row = el("div", "row"); const yes = el("button", "ok", "Approve"); const no = el("button", "no", "Reject");
+  row.append(yes, no); card.appendChild(row); chat.appendChild(card); scroll();
+  setBusy(true, "Waiting for a team-lead decision…");
+  const decide = async (approved) => {
+    yes.disabled = no.disabled = true;
+    card.appendChild(el("div", "notes", approved ? "You approved the offer." : "You rejected the offer."));
+    const steps = el("div", "steps"); chat.appendChild(steps);
+    setBusy(true, "Finishing…");
+    const r = await fetch(d.resume, { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ approved, approver: "web-team-lead" }) });
+    await streamSSE(r, steps);
+  };
+  yes.onclick = () => decide(true); no.onclick = () => decide(false);
+}
+
+function addError(t) { chat.appendChild(el("div", "msg bot", "Sorry, something went wrong: " + t)); setBusy(false); }
+
+async function send() {
+  const cid = $("cid").value.trim(); const text = $("msg").value.trim();
+  if (!/^CUST-\d{6}$/.test(cid)) { $("state").textContent = "Enter a customer ID like CUST-000397 (or pick a sample)."; return; }
+  if (!text) { $("state").textContent = "Type a message first."; return; }
+  sessionId = sessionId || newSession();
+  $("who").textContent = "Signed in as " + maskId(cid) + " · conversation " + sessionId;
+  chat.appendChild(el("div", "msg you", text)); $("msg").value = "";
+  const steps = el("div", "steps"); chat.appendChild(steps); scroll();
+  setBusy(true, "Working…");
+  try {
+    const r = await fetch("/v1/contacts/stream", { method: "POST",
+      headers: { "Content-Type": "application/json", "X-Customer-Id": cid },
+      body: JSON.stringify({ message: text, session_id: sessionId }) });
+    await streamSSE(r, steps);
+  } catch (e) { addError(String(e)); }
+}
+
+async function loadAccount() {
+  const cid = $("cid").value.trim(); const pre = $("account").querySelector("pre");
+  if (!/^CUST-\d{6}$/.test(cid)) { pre.textContent = "Enter a valid customer ID (CUST-######)."; return; }
+  const r = await fetch("/v1/account", { headers: { "X-Customer-Id": cid } });
+  pre.textContent = r.ok ? (await r.json()).lines.join("\n") : "Account not found.";
+}
+
+$("send").onclick = send;
+$("msg").addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } });
+$("loadAcct").onclick = loadAccount;
+$("newConv").onclick = () => { sessionId = null; chat.textContent = ""; $("who").textContent = "New conversation started."; };
+$("cid").addEventListener("change", () => { sessionId = null; loadAccount(); });
+
+fetch("/v1/samples").then(r => r.json()).then(list => {
+  list.forEach((s, i) => { const o = el("option", null, s.label + " (" + s.customer_ref + ")"); o.value = i; $("sample").appendChild(o); });
+  $("sample").onchange = () => { const s = list[$("sample").value]; if (!s) return;
+    if ($("cid").value !== s.customer_id) { sessionId = null; chat.textContent = ""; }
+    $("cid").value = s.customer_id; $("msg").value = s.message; loadAccount(); };
+});
+</script>
+</body>
+</html>

@@ -3,5 +3,5 @@
 [PASS] docs/model-card.md: 45 citation(s) checked, 0 unresolved
 [PASS] docs/output-risk.md: 35 citation(s) checked, 0 unresolved
 [PASS] docs/risk-register.md: 93 citation(s) checked, 0 unresolved
-[PASS] README.md: 80 citation(s) checked, 0 unresolved
-PASS: 341 citation(s) across 6 doc(s)
+[PASS] README.md: 102 citation(s) checked, 0 unresolved
+PASS: 363 citation(s) across 6 doc(s)

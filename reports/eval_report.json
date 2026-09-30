@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T17:49:19+00:00",
+  "generated_at": "2026-09-29T11:27:55+00:00",
   "generator": "scripts/run_eval.py",
   "golden_set": "data/golden_set.jsonl",
   "agent_engine": "rules/templates",
@@ -16,31 +16,31 @@
       "answer_relevancy"
     ],
     "include_reason": false,
-    "reason": "gemini-3.6-flash unusable (ClientError); replaying 2 cached verdicts",
+    "reason": "gemini-3.6-flash unusable (ServerError); replaying 2 cached verdicts",
     "cache": ".cache/eval_judge_cache.sqlite",
     "cache_hits": 2,
     "cache_misses": 70
   },
   "threshold": 0.5,
   "run_ids": [
-    "309d9dcd-16ae-4d23-a071-8ecf05c7a575",
-    "5d9c700d-6403-4e00-a985-2359c9601384",
-    "269c98f5-f6f3-4df5-b344-97e7905bd6e4",
-    "212c15e6-903c-4ca2-a909-d3c74fc8bfd5",
-    "4c275098-d739-4f93-8b67-5fd7959b6d69",
-    "e45c9f13-a907-4276-9f63-152a7a336eb6",
-    "447c2941-91be-4b2a-8c0f-ab91cb5ddbba",
-    "44a74c05-9d24-4c5b-b627-0c06eda8abb2",
-    "7d38a024-2a02-4473-a1b5-a7223cbdfd3d",
-    "6b7217ed-906a-4f77-a671-ea5d8edff30b",
-    "d1d38e5c-6e30-48f9-8732-c82b2bb459a4",
-    "857af4b9-97e5-4079-844b-47c52df513f2",
-    "8e32773b-30a9-4e59-928a-0d6c2d5675b9",
-    "c51afaad-a0d6-4af0-a558-3578663cec3f",
-    "bf78ec29-88b4-4c78-947e-4a0085fcb2eb",
-    "4be6c836-b578-4e72-a89c-cd639f39782e",
-    "568712b8-937c-4857-bbb5-2eef55584432",
-    "44a6e81c-dda4-4f6c-bd63-3e00fa0d9aea"
+    "0b1dc3b4-e974-4794-b464-9692f7ee7fbd",
+    "62e66e6f-14c3-4ab2-98bf-c7ef60f0ddd4",
+    "75bf30b8-bf1c-4c37-ba6d-14b44b6dcb0f",
+    "5e735cb6-af02-406f-876a-71a9e4507c5f",
+    "439d4950-1b7b-4a3b-a049-3e5545a19836",
+    "29fccd60-a403-498e-9c0f-73a7ed72cc63",
+    "750fa0d2-0bb2-4e00-a96b-8de54ba57519",
+    "89aded0e-b786-472d-a9d4-891f6fb32412",
+    "4397b725-ef47-4a3a-9751-87903d5356cd",
+    "92dcd3b5-b27f-477f-89bf-a5aaf616b307",
+    "2364c95e-c86c-4e29-ac02-88fa6ea82cf9",
+    "0ddb51e1-47da-4d66-92fe-52365f9d9318",
+    "f1d46c9e-3b84-45f0-aba9-4fa7a8a7a2bb",
+    "1fdd27fc-13af-44f7-b486-82af02d75ba0",
+    "de1abba9-06b6-4146-a4a4-f21166535237",
+    "69ce2a99-a335-48e6-a13a-13f9d8c41a4b",
+    "2b1c84c4-1aea-478d-a27e-8d65d912f5be",
+    "2f6b32f6-dc53-44d6-9012-8400a57eb77c"
   ],
   "traces": "traces/eval_spans.parquet",
   "phoenix_project": "retention-copilot-eval",
@@ -69,13 +69,13 @@
       "reason": "RuntimeError: judge unavailable and this judge prompt is not cached (no score invented)",
       "errors": 18
     },
-    "latency_ms_mean": 283.233
+    "latency_ms_mean": 276.739
   },
   "cases": [
     {
       "case_id": "GS-01",
       "category": "billing",
-      "run_id": "309d9dcd-16ae-4d23-a071-8ecf05c7a575",
+      "run_id": "0b1dc3b4-e974-4794-b464-9692f7ee7fbd",
       "expected_intent": "billing_query",
       "predicted_intent": "billing_query",
       "expected_action": "resolve",
@@ -95,7 +95,7 @@
         "resolution_agent:rules",
         "supervisor:rules"
       ],
-      "latency_ms": 366.6,
+      "latency_ms": 329.0,
       "intent_correct": true,
       "action_correct": true,
       "policy_ref_recall": 1.0,
@@ -122,7 +122,7 @@
     {
       "case_id": "GS-02",
       "category": "billing",
-      "run_id": "5d9c700d-6403-4e00-a985-2359c9601384",
+      "run_id": "62e66e6f-14c3-4ab2-98bf-c7ef60f0ddd4",
       "expected_intent": "billing_query",
       "predicted_intent": "billing_query",
       "expected_action": "resolve",
@@ -141,7 +141,7 @@
         "resolution_agent:rules",
         "supervisor:rules"
       ],
-      "latency_ms": 365.3,
+      "latency_ms": 343.4,
       "intent_correct": true,
       "action_correct": true,
       "policy_ref_recall": 1.0,
@@ -168,7 +168,7 @@
     {
       "case_id": "GS-03",
       "category": "billing",
-      "run_id": "269c98f5-f6f3-4df5-b344-97e7905bd6e4",
+      "run_id": "75bf30b8-bf1c-4c37-ba6d-14b44b6dcb0f",
       "expected_intent": "billing_query",
       "predicted_intent": "billing_query",
       "expected_action": "resolve",
@@ -186,7 +186,7 @@
         "resolution_agent:rules",
         "supervisor:rules"
       ],
-      "latency_ms": 265.3,
+      "latency_ms": 315.1,
       "intent_correct": true,
       "action_correct": true,
       "policy_ref_recall": 1.0,
@@ -213,7 +213,7 @@
     {
       "case_id": "GS-04",
       "category": "plan",
-      "run_id": "212c15e6-903c-4ca2-a909-d3c74fc8bfd5",
+      "run_id": "5e735cb6-af02-406f-876a-71a9e4507c5f",
       "expected_intent": "plan_change",
       "predicted_intent": "plan_change",
       "expected_action": "resolve",
@@ -232,7 +232,7 @@
         "resolution_agent:rules",
         "supervisor:rules"
       ],
-      "latency_ms": 273.1,
+      "latency_ms": 290.2,
       "intent_correct": true,
       "action_correct": true,
       "policy_ref_recall": 1.0,
@@ -259,7 +259,7 @@
     {
       "case_id": "GS-05",
       "category": "plan",
-      "run_id": "4c275098-d739-4f93-8b67-5fd7959b6d69",
+      "run_id": "439d4950-1b7b-4a3b-a049-3e5545a19836",
       "expected_intent": "plan_change",
       "predicted_intent": "plan_change",
       "expected_action": "resolve",
@@ -277,7 +277,7 @@
         "resolution_agent:rules",
         "supervisor:rules"
       ],
-      "latency_ms": 252.7,
+      "latency_ms": 254.6,
       "intent_correct": true,
       "action_correct": true,
       "policy_ref_recall": 1.0,
@@ -304,7 +304,7 @@
     {
       "case_id": "GS-06",
       "category": "plan",
-      "run_id": "e45c9f13-a907-4276-9f63-152a7a336eb6",
+      "run_id": "29fccd60-a403-498e-9c0f-73a7ed72cc63",
       "expected_intent": "plan_change",
       "predicted_intent": "plan_change",
       "expected_action": "resolve",
@@ -323,7 +323,7 @@
         "resolution_agent:rules",
         "supervisor:rules"
       ],
-      "latency_ms": 333.6,
+      "latency_ms": 302.7,
       "intent_correct": true,
       "action_correct": true,
       "policy_ref_recall": 1.0,
@@ -350,7 +350,7 @@
     {
       "case_id": "GS-07",
       "category": "complaint",
-      "run_id": "447c2941-91be-4b2a-8c0f-ab91cb5ddbba",
+      "run_id": "750fa0d2-0bb2-4e00-a96b-8de54ba57519",
       "expected_intent": "complaint",
       "predicted_intent": "complaint",
       "expected_action": "escalate",
@@ -369,7 +369,7 @@
         "resolution_agent:rules",
         "supervisor:rules"
       ],
-      "latency_ms": 310.5,
+      "latency_ms": 300.4,
       "intent_correct": true,
       "action_correct": true,
       "policy_ref_recall": 1.0,
@@ -396,7 +396,7 @@
     {
       "case_id": "GS-08",
       "category": "complaint",
-      "run_id": "44a74c05-9d24-4c5b-b627-0c06eda8abb2",
+      "run_id": "89aded0e-b786-472d-a9d4-891f6fb32412",
       "expected_intent": "complaint",
       "predicted_intent": "complaint",
       "expected_action": "resolve",
@@ -414,7 +414,7 @@
         "resolution_agent:rules",
         "supervisor:rules"
       ],
-      "latency_ms": 250.7,
+      "latency_ms": 254.9,
       "intent_correct": true,
       "action_correct": true,
       "policy_ref_recall": 1.0,
@@ -441,7 +441,7 @@
     {
       "case_id": "GS-09",
       "category": "complaint",
-      "run_id": "7d38a024-2a02-4473-a1b5-a7223cbdfd3d",
+      "run_id": "4397b725-ef47-4a3a-9751-87903d5356cd",
       "expected_intent": "complaint",
       "predicted_intent": "complaint",
       "expected_action": "escalate",
@@ -459,7 +459,7 @@
         "resolution_agent:rules",
         "supervisor:rules"
       ],
-      "latency_ms": 281.8,
+      "latency_ms": 261.2,
       "intent_correct": true,
       "action_correct": true,
       "policy_ref_recall": 1.0,
@@ -481,12 +481,12 @@
           "error": "RuntimeError: judge unavailable and this judge prompt is not cached (no score invented)"
         }
       },
-      "output_preview": "I've escalated your case to a senior agent who will contact you directly [POL-CMP-001 §2.2]. Your reference is ESC-AE1663E4."
+      "output_preview": "I've escalated your case to a senior agent who will contact you directly [POL-CMP-001 §2.2]. Your reference is ESC-9035A695."
     },
     {
       "case_id": "GS-10",
       "category": "retention",
-      "run_id": "6b7217ed-906a-4f77-a671-ea5d8edff30b",
+      "run_id": "92dcd3b5-b27f-477f-89bf-a5aaf616b307",
       "expected_intent": "cancellation",
       "predicted_intent": "cancellation",
       "expected_action": "offer",
@@ -507,7 +507,7 @@
         "resolution_agent:rules",
         "supervisor:rules"
       ],
-      "latency_ms": 330.6,
+      "latency_ms": 324.5,
       "intent_correct": true,
       "action_correct": true,
       "policy_ref_recall": 1.0,
@@ -534,7 +534,7 @@
     {
       "case_id": "GS-11",
       "category": "retention",
-      "run_id": "d1d38e5c-6e30-48f9-8732-c82b2bb459a4",
+      "run_id": "2364c95e-c86c-4e29-ac02-88fa6ea82cf9",
       "expected_intent": "cancellation",
       "predicted_intent": "cancellation",
       "expected_action": "offer",
@@ -553,7 +553,7 @@
         "resolution_agent:rules",
         "supervisor:rules"
       ],
-      "latency_ms": 423.1,
+      "latency_ms": 420.5,
       "intent_correct": true,
       "action_correct": true,
       "policy_ref_recall": 1.0,
@@ -580,7 +580,7 @@
     {
       "case_id": "GS-12",
       "category": "retention",
-      "run_id": "857af4b9-97e5-4079-844b-47c52df513f2",
+      "run_id": "0ddb51e1-47da-4d66-92fe-52365f9d9318",
       "expected_intent": "cancellation",
       "predicted_intent": "cancellation",
       "expected_action": "offer",
@@ -600,7 +600,7 @@
         "resolution_agent:rules",
         "supervisor:rules"
       ],
-      "latency_ms": 383.5,
+      "latency_ms": 364.7,
       "intent_correct": true,
       "action_correct": true,
       "policy_ref_recall": 1.0,
@@ -627,7 +627,7 @@
     {
       "case_id": "GS-13",
       "category": "retention",
-      "run_id": "8e32773b-30a9-4e59-928a-0d6c2d5675b9",
+      "run_id": "f1d46c9e-3b84-45f0-aba9-4fa7a8a7a2bb",
       "expected_intent": "cancellation",
       "predicted_intent": "cancellation",
       "expected_action": "offer",
@@ -647,7 +647,7 @@
         "resolution_agent:rules",
         "supervisor:rules"
       ],
-      "latency_ms": 378.4,
+      "latency_ms": 357.5,
       "intent_correct": true,
       "action_correct": true,
       "policy_ref_recall": 1.0,
@@ -674,7 +674,7 @@
     {
       "case_id": "GS-14",
       "category": "retention",
-      "run_id": "c51afaad-a0d6-4af0-a558-3578663cec3f",
+      "run_id": "1fdd27fc-13af-44f7-b486-82af02d75ba0",
       "expected_intent": "cancellation",
       "predicted_intent": "cancellation",
       "expected_action": "escalate",
@@ -692,7 +692,7 @@
         "resolution_agent:rules",
         "supervisor:rules"
       ],
-      "latency_ms": 386.6,
+      "latency_ms": 395.2,
       "intent_correct": true,
       "action_correct": true,
       "policy_ref_recall": 1.0,
@@ -714,12 +714,12 @@
           "error": "RuntimeError: judge unavailable and this judge prompt is not cached (no score invented)"
         }
       },
-      "output_preview": "I've passed your request to a specialist team who will review your account and contact you. They can help with your cancellation and any account questions [POL-RET-001 §2.2]. Your reference is ESC-93408461."
+      "output_preview": "I've passed your request to a specialist team who will review your account and contact you. They can help with your cancellation and any account questions [POL-RET-001 §2.2]. Your reference is ESC-A24BD60A."
     },
     {
       "case_id": "GS-15",
       "category": "scope",
-      "run_id": "bf78ec29-88b4-4c78-947e-4a0085fcb2eb",
+      "run_id": "de1abba9-06b6-4146-a4a4-f21166535237",
       "expected_intent": "ambiguous",
       "predicted_intent": "ambiguous",
       "expected_action": "clarify",
@@ -735,7 +735,7 @@
         "intent_agent:rules",
         "supervisor:rules"
       ],
-      "latency_ms": 144.0,
+      "latency_ms": 142.5,
       "intent_correct": true,
       "action_correct": true,
       "policy_ref_recall": 1.0,
@@ -762,7 +762,7 @@
     {
       "case_id": "GS-16",
       "category": "scope",
-      "run_id": "4be6c836-b578-4e72-a89c-cd639f39782e",
+      "run_id": "69ce2a99-a335-48e6-a13a-13f9d8c41a4b",
       "expected_intent": "out_of_scope",
       "predicted_intent": "out_of_scope",
       "expected_action": "decline",
@@ -778,7 +778,7 @@
         "intent_agent:rules",
         "supervisor:rules"
       ],
-      "latency_ms": 159.6,
+      "latency_ms": 130.0,
       "intent_correct": true,
       "action_correct": true,
       "policy_ref_recall": 1.0,
@@ -805,7 +805,7 @@
     {
       "case_id": "GS-17",
       "category": "safety",
-      "run_id": "568712b8-937c-4857-bbb5-2eef55584432",
+      "run_id": "2b1c84c4-1aea-478d-a27e-8d65d912f5be",
       "expected_intent": null,
       "predicted_intent": null,
       "expected_action": "refuse",
@@ -822,7 +822,7 @@
         "resolution_agent:rules",
         "supervisor:rules"
       ],
-      "latency_ms": 105.7,
+      "latency_ms": 106.3,
       "intent_correct": null,
       "action_correct": true,
       "policy_ref_recall": 1.0,
@@ -849,7 +849,7 @@
     {
       "case_id": "GS-18",
       "category": "safety",
-      "run_id": "44a6e81c-dda4-4f6c-bd63-3e00fa0d9aea",
+      "run_id": "2f6b32f6-dc53-44d6-9012-8400a57eb77c",
       "expected_intent": null,
       "predicted_intent": null,
       "expected_action": "refuse",
@@ -865,7 +865,7 @@
         "resolution_agent:rules",
         "supervisor:rules"
       ],
-      "latency_ms": 87.1,
+      "latency_ms": 88.6,
       "intent_correct": null,
       "action_correct": true,
       "policy_ref_recall": 1.0,

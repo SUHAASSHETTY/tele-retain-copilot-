@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T17:50:09+00:00",
+  "generated_at": "2026-09-29T11:28:46+00:00",
   "generator": "scripts/golden_signals.py",
   "sources": {
     "spans": "traces/phoenix_spans.parquet",
@@ -28,67 +28,67 @@
     },
     "acting": {
       "count": 361,
-      "p50_ms": 5.9,
-      "p95_ms": 258.6,
-      "mean_ms": 35.0
+      "p50_ms": 5.5,
+      "p95_ms": 260.0,
+      "mean_ms": 34.9
     },
     "tool": {
       "count": 64,
-      "p50_ms": 19.0,
-      "p95_ms": 54.0,
-      "mean_ms": 25.4
+      "p50_ms": 19.7,
+      "p95_ms": 54.4,
+      "mean_ms": 24.6
     },
     "tool_by_name": {
       "check_offer_eligibility": {
         "count": 6,
-        "p50_ms": 19.2,
-        "p95_ms": 20.1,
-        "mean_ms": 19.2
+        "p50_ms": 19.6,
+        "p95_ms": 19.9,
+        "mean_ms": 19.5
       },
       "create_escalation_ticket": {
         "count": 2,
-        "p50_ms": 15.2,
-        "p95_ms": 15.7,
-        "mean_ms": 15.2
+        "p50_ms": 17.2,
+        "p95_ms": 19.5,
+        "mean_ms": 17.2
       },
       "get_account": {
         "count": 11,
-        "p50_ms": 27.4,
-        "p95_ms": 35.2,
-        "mean_ms": 28.4
+        "p50_ms": 26.6,
+        "p95_ms": 42.8,
+        "mean_ms": 29.2
       },
       "get_billing_history": {
         "count": 2,
-        "p50_ms": 47.6,
-        "p95_ms": 49.6,
-        "mean_ms": 47.6
+        "p50_ms": 43.0,
+        "p95_ms": 54.6,
+        "mean_ms": 43.0
       },
       "manage_memory": {
         "count": 21,
-        "p50_ms": 17.0,
-        "p95_ms": 23.0,
-        "mean_ms": 18.0
+        "p50_ms": 17.8,
+        "p95_ms": 21.1,
+        "mean_ms": 18.2
       },
       "policy_rag": {
         "count": 11,
-        "p50_ms": 53.8,
-        "p95_ms": 65.9,
-        "mean_ms": 53.1
+        "p50_ms": 46.7,
+        "p95_ms": 57.9,
+        "mean_ms": 48.4
       }
     },
     "end_to_end_turn": {
       "count": 15,
-      "p50_ms": 294.5,
-      "p95_ms": 432.9,
-      "mean_ms": 274.3
+      "p50_ms": 292.3,
+      "p95_ms": 436.4,
+      "mean_ms": 275.7
     },
     "end_to_end_turn_warm": {
       "count": 14,
-      "p50_ms": 283.0,
-      "p95_ms": 434.7,
-      "mean_ms": 267.9
+      "p50_ms": 279.6,
+      "p95_ms": 437.5,
+      "mean_ms": 270.7
     },
-    "cold_start_first_turn_ms": 363.1
+    "cold_start_first_turn_ms": 344.9
   },
   "traffic": {
     "runs": 14,
@@ -167,11 +167,11 @@
   },
   "per_run": [
     {
-      "run_id": "79bfa035-1095-4336-97b5-b3680059bcd0",
+      "run_id": "2bf3e91c-b034-413d-8ea5-300214776731",
       "contact_id": "CT-0001",
       "turns": 1,
       "spans": 38,
-      "e2e_latency_ms": 363.1,
+      "e2e_latency_ms": 344.9,
       "llm_calls": 0,
       "tool_calls": 4,
       "prompt_tokens": 0,
@@ -179,11 +179,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "e137d020-f00a-4634-a853-4f6304e0e592",
+      "run_id": "90c583d3-6e2b-430c-b884-6d5db217f290",
       "contact_id": "CT-0002",
       "turns": 1,
       "spans": 42,
-      "e2e_latency_ms": 371.0,
+      "e2e_latency_ms": 347.5,
       "llm_calls": 0,
       "tool_calls": 6,
       "prompt_tokens": 0,
@@ -191,11 +191,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "6db514da-00cb-4b01-962a-ee3b650e77be",
+      "run_id": "9da55b63-deda-48ed-861a-6f0185b0e305",
       "contact_id": "CT-0003",
       "turns": 1,
       "spans": 33,
-      "e2e_latency_ms": 271.5,
+      "e2e_latency_ms": 266.9,
       "llm_calls": 0,
       "tool_calls": 3,
       "prompt_tokens": 0,
@@ -203,11 +203,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "257cc68c-d0b7-4cd5-a1cf-12f9e97744ab",
+      "run_id": "6a1b5e58-dc41-48a7-92b5-4dbf279e76ba",
       "contact_id": "CT-0004",
       "turns": 1,
       "spans": 36,
-      "e2e_latency_ms": 294.5,
+      "e2e_latency_ms": 369.5,
       "llm_calls": 0,
       "tool_calls": 4,
       "prompt_tokens": 0,
@@ -215,11 +215,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "55db828b-2696-4c16-90ce-f342919137b8",
+      "run_id": "96e77940-3a6f-46cc-93cf-1032a032cfa4",
       "contact_id": "CT-0005",
       "turns": 1,
       "spans": 40,
-      "e2e_latency_ms": 333.4,
+      "e2e_latency_ms": 333.8,
       "llm_calls": 0,
       "tool_calls": 5,
       "prompt_tokens": 0,
@@ -227,11 +227,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "f9e99065-460c-49c5-a719-83c8e5d69c00",
+      "run_id": "b23365f0-a5bf-4bba-b945-dcdbad0ea262",
       "contact_id": "CT-0006",
       "turns": 1,
       "spans": 50,
-      "e2e_latency_ms": 421.7,
+      "e2e_latency_ms": 430.4,
       "llm_calls": 0,
       "tool_calls": 8,
       "prompt_tokens": 0,
@@ -239,8 +239,20 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "36275177-59c3-42ba-9c46-05f5889cc662",
+      "run_id": "f2d50576-01c0-4230-8246-1c02de291192",
       "contact_id": "CT-0007",
+      "turns": 1,
+      "spans": 17,
+      "e2e_latency_ms": 131.6,
+      "llm_calls": 0,
+      "tool_calls": 1,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "cost_usd": 0.0
+    },
+    {
+      "run_id": "5b96d784-3986-475e-991c-e3351873093b",
+      "contact_id": "CT-0008",
       "turns": 1,
       "spans": 17,
       "e2e_latency_ms": 136.9,
@@ -251,23 +263,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "a549ba75-42b2-4805-b3ce-6f92c171c164",
-      "contact_id": "CT-0008",
-      "turns": 1,
-      "spans": 17,
-      "e2e_latency_ms": 137.4,
-      "llm_calls": 0,
-      "tool_calls": 1,
-      "prompt_tokens": 0,
-      "completion_tokens": 0,
-      "cost_usd": 0.0
-    },
-    {
-      "run_id": "b3c8ecf7-43d3-4494-8045-637b1d71c29c",
+      "run_id": "fa269ae5-e4d1-4d6a-bf62-2b1ba64f7366",
       "contact_id": "CT-0009",
       "turns": 1,
       "spans": 12,
-      "e2e_latency_ms": 97.9,
+      "e2e_latency_ms": 97.6,
       "llm_calls": 0,
       "tool_calls": 0,
       "prompt_tokens": 0,
@@ -275,11 +275,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "efe015b1-9584-4754-8f29-6741a8058984",
+      "run_id": "543e770e-5f25-4506-a59a-42d51244917f",
       "contact_id": "CT-0010",
       "turns": 1,
       "spans": 12,
-      "e2e_latency_ms": 93.2,
+      "e2e_latency_ms": 96.1,
       "llm_calls": 0,
       "tool_calls": 0,
       "prompt_tokens": 0,
@@ -287,11 +287,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "b32b5b10-3fb2-4440-9a4c-c8271c0b6633",
+      "run_id": "40d8f770-666e-4788-9b91-38ac979ef6f5",
       "contact_id": "CT-0011",
       "turns": 1,
       "spans": 37,
-      "e2e_latency_ms": 327.3,
+      "e2e_latency_ms": 322.9,
       "llm_calls": 0,
       "tool_calls": 5,
       "prompt_tokens": 0,
@@ -299,11 +299,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "51609169-5d06-4fb8-b7b6-94b200e328ee",
+      "run_id": "bd8094a3-8654-4cd0-ae2e-696b66a089e2",
       "contact_id": "CT-0012",
       "turns": 1,
       "spans": 31,
-      "e2e_latency_ms": 258.6,
+      "e2e_latency_ms": 265.6,
       "llm_calls": 0,
       "tool_calls": 2,
       "prompt_tokens": 0,
@@ -311,11 +311,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "272d2565-ea5c-454f-bab5-30843f1b14dc",
+      "run_id": "ea06e5bc-dbce-47ff-b4c6-1f848de24bc8",
       "contact_id": "CT-0013",
       "turns": 2,
       "spans": 66,
-      "e2e_latency_ms": 548.7,
+      "e2e_latency_ms": 541.1,
       "llm_calls": 0,
       "tool_calls": 6,
       "prompt_tokens": 0,
@@ -323,11 +323,11 @@
       "cost_usd": 0.0
     },
     {
-      "run_id": "9f4f5e2c-fca6-4645-8ac3-7ea3cda89a9c",
+      "run_id": "35c6a23c-08b5-409e-89f7-bf476d032189",
       "contact_id": "CT-0014",
       "turns": 1,
       "spans": 47,
-      "e2e_latency_ms": 458.9,
+      "e2e_latency_ms": 450.6,
       "llm_calls": 0,
       "tool_calls": 8,
       "prompt_tokens": 0,
@@ -337,7 +337,7 @@
   ],
   "quality": {
     "source": "reports/eval_report.json",
-    "generated_at": "2026-09-28T17:49:19+00:00",
+    "generated_at": "2026-09-29T11:27:55+00:00",
     "cases": 18,
     "agent_engine": "rules/templates",
     "intent_accuracy": 1.0,
@@ -366,7 +366,7 @@
     "judge": {
       "model": "gemini-3.6-flash",
       "status": "ran",
-      "reason": "gemini-3.6-flash unusable (ClientError); replaying 2 cached verdicts"
+      "reason": "gemini-3.6-flash unusable (ServerError); replaying 2 cached verdicts"
     },
     "hallucination_coverage": "2/18 cases judged"
   },

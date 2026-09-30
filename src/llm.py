@@ -6,6 +6,7 @@ avoid multiplying attempts. Structured output uses Pydantic schemas.
 
 from __future__ import annotations
 
+import logging
 from functools import lru_cache
 from typing import TypeVar
 
@@ -19,6 +20,8 @@ from src.config import require_google_api_key, settings
 from src.resilience import ExternalCallFailed, resilient_call
 
 S = TypeVar("S", bound=BaseModel)
+logging.getLogger("google_genai").setLevel(logging.ERROR)       # SDK advisory warnings are not user-facing
+logging.getLogger("google_genai.models").setLevel(logging.ERROR)
 
 
 # One limiter shared by every Gemini client in the process (agents, RAG judge, memory, eval judge).

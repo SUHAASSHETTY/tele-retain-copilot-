@@ -1,5 +1,5 @@
 [before] mcp-mode=per-call: src.cli run --input data/sample_contacts.jsonl ...
-[before] -> reports/golden_signals_before.json | tool p50=48.6ms warm turn p50=1712.2ms
+[before] -> reports/golden_signals_before.json | tool p50=44.5ms warm turn p50=1722.2ms
 [after] mcp-mode=session: src.cli run --input data/sample_contacts.jsonl ...
-[after] -> reports/golden_signals_after.json | tool p50=19.1ms warm turn p50=381.7ms
+[after] -> reports/golden_signals_after.json | tool p50=19.4ms warm turn p50=400.7ms
 -> reports/optimization_note.md (outcomes identical: True)

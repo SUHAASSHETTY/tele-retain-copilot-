@@ -17,7 +17,7 @@ resources/read policy://catalog -> 11 docs, 59 clauses
 resources/read plans://catalog  -> 6 plans, 5 offers, threshold=$**.**
 MultiServerMCPClient.get_tools path: get_account -> ok=True CUST-***927 plan=PRE-PLUS risk=low
 
-logs/mcp_transcript.jsonl: 18 records {'tools/list': 2, 'tools/call': 14, 'resources/read': 2} statuses={'ok': 14, 'denied': 3, 'error': 1}
+logs/mcp_transcript.jsonl: 18 records {'tools/list': 2, 'tools/call': 14, 'resources/read': 2} statuses={'error': 1, 'denied': 3, 'ok': 14}
 plaintext PII leak check over 200 identifiers: PASS
 
 policy_rag (judge: heuristic -- disabled with --no-llm)

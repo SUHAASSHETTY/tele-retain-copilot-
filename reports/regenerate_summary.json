@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-28T17:52:05+00:00",
+  "generated_at": "2026-09-29T11:31:04+00:00",
   "generator": "scripts/regenerate_evidence.py",
   "mode": "deterministic",
   "status": "PASS",
-  "total_seconds": 304.0,
+  "total_seconds": 330.8,
   "steps": [
     {
       "step": 1,
@@ -16,50 +16,50 @@
       "step": 2,
       "name": "index",
       "status": "ok",
-      "seconds": 2.2,
+      "seconds": 1.7,
       "detail": "indexed 59 clauses into 'policy_clauses' (fingerprint c82c6734fcab778f) at data/runtime/chroma"
     },
     {
       "step": 3,
       "name": "phoenix",
       "status": "ok",
-      "seconds": 9.4,
+      "seconds": 0.0,
       "detail": "http://localhost:6006"
     },
     {
       "step": 4,
       "name": "tools",
       "status": "ok",
-      "seconds": 17.6,
+      "seconds": 18.4,
       "detail": "plaintext PII leak check over 200 identifiers: PASS"
     },
     {
       "step": 5,
       "name": "contacts",
       "status": "ok",
-      "seconds": 33.1,
+      "seconds": 35.6,
       "detail": "14/14 contacts matched the expected outcome; results -> reports/sample_run_results.jsonl"
     },
     {
       "step": 6,
       "name": "redteam",
       "status": "ok",
-      "seconds": 18.7,
+      "seconds": 22.9,
       "detail": "-> reports/redteam_results.json"
     },
     {
       "step": 7,
       "name": "eval",
       "status": "ok",
-      "seconds": 59.7,
+      "seconds": 65.3,
       "detail": "-> reports/eval_report.json"
     },
     {
       "step": 8,
       "name": "tests",
       "status": "ok",
-      "seconds": 46.7,
-      "detail": "104 passed in 35.61s"
+      "seconds": 48.0,
+      "detail": "126 passed in 37.65s"
     },
     {
       "step": 9,
@@ -72,28 +72,28 @@
       "step": 10,
       "name": "dashboard",
       "status": "ok",
-      "seconds": 16.2,
-      "detail": "reports/dashboard.png: Phoenix UI screenshot of http://localhost:6006/projects/UHJvamVjdDoyNg=="
+      "seconds": 16.3,
+      "detail": "reports/dashboard.png: Phoenix UI screenshot of http://localhost:6006/projects/UHJvamVjdDozMA=="
     },
     {
       "step": 11,
       "name": "benchmark",
       "status": "ok",
-      "seconds": 65.9,
+      "seconds": 68.5,
       "detail": "-> reports/optimization_note.md (outcomes identical: True)"
     },
     {
       "step": 12,
       "name": "api",
       "status": "ok",
-      "seconds": 26.2,
+      "seconds": 45.7,
       "detail": "RESULT: PASS (all scenarios behaved as expected)"
     },
     {
       "step": 13,
       "name": "reconcile",
       "status": "ok",
-      "seconds": 2.2,
+      "seconds": 2.3,
       "detail": "PASS -> reports/tool_reconciliation.json"
     },
     {
@@ -101,14 +101,14 @@
       "name": "pii",
       "status": "ok",
       "seconds": 4.7,
-      "detail": "PASS: no plaintext synthetic identifiers in 77 file(s) under logs, traces, reports, evidence (245 known identi"
+      "detail": "PASS: no plaintext synthetic identifiers in 78 file(s) under logs, traces, reports, evidence (245 known identi"
     },
     {
       "step": 15,
       "name": "citations",
       "status": "ok",
       "seconds": 0.7,
-      "detail": "PASS: 341 citation(s) across 6 doc(s)"
+      "detail": "PASS: 363 citation(s) across 6 doc(s)"
     }
   ]
 }

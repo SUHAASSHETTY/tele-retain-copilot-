@@ -7,6 +7,9 @@
           `approval_required` (the turn is paused at the human-approval interrupt) or `resolution`
   POST /v1/sessions/{session_id}/approval  {"approved": true|false, "approver": "name"}
        -> resumes the paused thread and streams the rest of the turn
+  GET  /                                 browser UI (src/api/static/index.html; no external assets)
+  GET  /v1/samples                       synthetic sample scenarios for the UI
+  GET  /v1/account  (X-Customer-Id)      masked account summary via the MCP tool (same authorization)
 
 Every event payload passes through src.guardrails.pii.mask_obj. The customer only ever receives the
 output guard's final text. Run: uvicorn src.api.app:app --port 8000
@@ -21,12 +24,15 @@ from contextlib import AsyncExitStack, asynccontextmanager
 from typing import Any, AsyncIterator
 
 from fastapi import FastAPI, Header, HTTPException
-from fastapi.responses import StreamingResponse
+from fastapi.responses import HTMLResponse, StreamingResponse
 from langgraph.types import Command
 from pydantic import BaseModel, Field
 
 from src.agents.common import Deps
-from src.config import settings
+from pathlib import Path
+
+from src import ui
+from src.config import SAMPLE_CONTACTS_PATH, settings
 from src.graph import open_graph, redact_at_ingest
 from src.guardrails.pii import mask_customer_id, mask_obj
 from src.llm import llm_preflight
@@ -119,17 +125,66 @@ async def _stream(payload: Any, customer_id: str, session_id: str, run_id: str) 
                 for node, update in chunk.items():
                     if node == "__interrupt__":
                         req = update[0].value if update else {}
-                        yield sse("approval_required", {"session_id": session_id, "request": req,
-                                                        "resume": f"/v1/sessions/{session_id}/approval"})
+                        yield sse("approval_required", {
+                            "session_id": session_id, "request": req, "resume": f"/v1/sessions/{session_id}/approval",
+                            "explanation": f"The copilot wants to offer {ui.describe_offer(req)} (total "
+                                           f"{ui.money(req.get('offer_value_usd'))}). Offers above "
+                                           f"{ui.money(ui.APPROVAL_THRESHOLD)} need a team lead's approval."})
                         return
-                    yield sse("node", {"node": node, **_summary(node, update)})
+                    yield sse("node", {"node": node, "label": ui.NODE_LABELS.get(node, node), **_summary(node, update)})
             state = (await rt.app.aget_state(config)).values
             annotate_turn(span, state)
-            yield sse("resolution", {"outcome": (state.get("resolution") or {}).get("outcome"),
-                                     "risk_tier": (state.get("output_risk") or {}).get("tier"),
-                                     "reply": state.get("final_response")})
+            yield sse("resolution", _resolution_event(state))
     finally:
         llm_enabled_var.reset(llm_tok)
+
+
+def _resolution_event(state: dict) -> dict:
+    res = state.get("resolution") or {}
+    icon, _color, label = ui.OUTCOME_LABELS.get(res.get("outcome"), ("", "", str(res.get("outcome"))))
+    notes = []
+    if state.get("guard_blocked"):
+        notes.append(ui.GUARD_EXPLAIN.get(state.get("guard_reason"), "Blocked by a safety check."))
+    for b in (state.get("offer_decision") or {}).get("blocked", []):
+        if b.get("source") == "customer_request":
+            notes.append(f"Requested {ui.describe_offer(b)} is above policy limits ({', '.join(b['policy_refs'][:2])}).")
+    approval = state.get("approval")
+    if approval:
+        notes.append("Offer " + ("approved" if approval.get("approved") else "rejected") + " by the approver.")
+    if res.get("ticket_id"):
+        notes.append(f"Ticket {res['ticket_id']} opened for a specialist.")
+    return {"outcome": res.get("outcome"), "outcome_label": f"{icon} {label}".strip(),
+            "intent": ui.INTENT_LABELS.get(state.get("intent"), state.get("intent")),
+            "risk_tier": (state.get("output_risk") or {}).get("tier"), "reply": state.get("final_response"),
+            "notes": notes, "ticket_id": res.get("ticket_id"),
+            "citations": [{"id": c, "title": ui.clause_titles().get(c, "")} for c in dict.fromkeys(res.get("citations") or [])]}
+
+
+@api.get("/", response_class=HTMLResponse)
+async def index() -> str:
+    return (Path(__file__).parent / "static" / "index.html").read_text()
+
+
+@api.get("/v1/samples")
+async def samples() -> list[dict]:
+    out = []
+    for line in SAMPLE_CONTACTS_PATH.read_text().splitlines():
+        c = json.loads(line)
+        out.append({"label": c["scenario"].replace("_", " "), "customer_id": c["customer_id"],
+                    "customer_ref": mask_customer_id(c["customer_id"]), "message": c["turns"][-1]})
+    return out
+
+
+@api.get("/v1/account")
+async def account(x_customer_id: str = Header(...)) -> dict:
+    if not CUSTOMER_RE.match(x_customer_id):
+        raise HTTPException(401, "X-Customer-Id must identify the authenticated caller (CUST-######)")
+    token = rt.mcp.issue_session_token(x_customer_id, "WEB-ACCOUNT")
+    with run_scope(session_id="WEB-ACCOUNT", mcp_auth_token=token):
+        out = await rt.session.call("get_account", customer_id=x_customer_id)
+    if not out.get("ok"):
+        raise HTTPException(404, "account not found")
+    return {"lines": ui.account_lines(out["account"]), "customer_ref": out["account"]["customer_ref"]}
 
 
 @api.get("/health")
