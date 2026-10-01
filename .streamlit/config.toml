@@ -1,0 +1,22 @@
+# Streamlit theme for the Retention Copilot UI (streamlit run app.py)
+[theme]
+base = "light"
+primaryColor = "#3b5bdb"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f5f7fb"
+textColor = "#101828"
+borderColor = "#e4e7ec"
+showWidgetBorder = true
+baseRadius = "10px"
+
+[client]
+toolbarMode = "minimal"
+showErrorDetails = "none"
+
+[browser]
+gatherUsageStats = false
+
+[server]
+# No file watcher: the app is not edited live during a demo, and the watcher probes every imported
+# package (e.g. transformers' optional vision modules), which floods the terminal with tracebacks.
+fileWatcherType = "none"

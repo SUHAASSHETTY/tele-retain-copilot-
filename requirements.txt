@@ -65,6 +65,9 @@ pyarrow==25.0.1
 matplotlib==3.11.2
 playwright==1.63.0
 
+# --- Presentation UI (streamlit run app.py) ----------------------------------
+streamlit==1.64.0                    # front end only; calls the FastAPI app below
+
 # --- Optional API (bonus) ----------------------------------------------------
 fastapi==0.141.1
 uvicorn==0.54.0

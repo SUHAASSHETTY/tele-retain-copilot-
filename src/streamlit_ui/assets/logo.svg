@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="44" viewBox="0 0 260 44">
+  <rect x="0" y="4" width="36" height="36" rx="9" fill="#3b5bdb"/>
+  <path d="M10 26c3-9 13-12 17-9M12 30c4-3 9-4 13-2" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  <circle cx="26" cy="15" r="3" fill="#fff"/>
+  <text x="46" y="21" font-family="-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#101828">Customer Service Copilot</text>
+  <text x="46" y="37" font-family="-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="11.5" fill="#667085">Telecom support &amp; retention</text>
+</svg>

@@ -18,6 +18,7 @@ built-in rules and templates.
 
 ## Contents
 - [Quick start (5 minutes)](#quick-start-5-minutes)
+- [Streamlit app (presentation UI)](#streamlit-app-presentation-ui)
 - [Terminal demo](#terminal-demo)
 - [Chat demo](#chat-demo)
 - [Web UI](#web-ui)
@@ -50,11 +51,43 @@ python -m src.cli demo                   # guided tour of six scenarios; no API 
 Then try it yourself:
 
 ```bash
+streamlit run app.py                                    # presentation UI at http://localhost:8501
 python -m src.cli chat --customer CUST-000397           # terminal chat
 uvicorn src.api.app:app --port 8000                     # web UI at http://localhost:8000
 ```
 
 The first run downloads a small local embedding model and takes a little longer.
+
+## Streamlit app (presentation UI)
+
+```bash
+streamlit run app.py                       # http://localhost:8501
+COPILOT_NO_LLM=1 streamlit run app.py      # force the deterministic rules/templates engine
+```
+
+A front end only. On first load it starts the existing FastAPI app (`src/api/app.py`) in-process, so every
+analysis runs the real agent graph, MCP tools, guardrails, approval gate and audit trail. To use an API that is
+already running, set `COPILOT_API_URL=http://localhost:8000`. Code: `app.py` and `src/streamlit_ui/`.
+
+| Page | What it shows | Where the data comes from |
+|---|---|---|
+| Overview | What the product is, the five-step workflow, headline numbers | `data/synthetic/telecom.db`, the audit trail, `reports/` |
+| Customer Copilot | Select a customer → summary and risk factors → paste the message → **Run full analysis** → why the customer is at risk, the recommended action, priority, expected impact, the reply (copy / regenerate) and the agent steps | `POST /v1/contacts/stream`, `POST /v1/sessions/{id}/approval`, the run's audit records |
+| Retention Analysis | Churn-risk mix, complaints by category, the best policy-eligible offer for every at-risk customer | `mcp_server/server.py::evaluate_offer` with the agents' offer ladder (read-only; nothing is offered) |
+| Agent Activity | The nine-agent pipeline, the live steps of your latest analysis, every audited case and its decisions | `logs/agent_actions.jsonl`, `logs/tool_calls.jsonl` |
+| Evaluation / Results | Intent/action accuracy, citation recall and validity, red-team results, tool success and latency | `reports/eval_report.json`, `reports/redteam_results.json`, `reports/golden_signals.json` |
+
+Demo: open **Customer Copilot**, choose the scenario *Cancellation at risk needs approval*, click **Run full
+analysis**, then **Approve offer** as the team lead. The 50% request is shown as blocked, and 20% for 6 months is
+approved and offered with policy citations.
+Screenshot of that run: `reports/streamlit_ui.png`.
+
+Notes:
+- Names are shown as an initial only, and customer IDs are masked.
+- Risk factors are transparent rules over the account record; each shows the fact it is based on.
+- The audit log masks amounts, so offer costs are re-checked with the same deterministic policy engine.
+- Errors appear as a short message with a **Technical details** expander (masked); no tracebacks.
+- Each analysis writes to the normal audit and tool logs, like the CLI and web UI.
 
 ## Terminal demo
 
@@ -259,7 +292,7 @@ About the eval step's judge:
 ## Tests
 
 ```bash
-python -m pytest -q          # 126 tests, no API key needed (Gemini disabled or stubbed)
+python -m pytest -q          # 134 tests, no API key needed (Gemini disabled or stubbed)
 ```
 
 | Test file | What it covers |
@@ -272,6 +305,7 @@ python -m pytest -q          # 126 tests, no API key needed (Gemini disabled or 
 | `tests/test_context.py` | isolation, quarantine and compression |
 | `tests/test_provider_policy.py` | Gemini-only provider policy, pinned requirements |
 | `tests/test_ui.py` | masked, readable terminal output; chat commands; approval answers; web event explanations |
+| `tests/test_streamlit_ui.py` | Streamlit data layer (masking, risk factors, policy re-check), friendly masked errors, page smoke tests with the API offline |
 
 ## Streaming API
 
@@ -301,6 +335,7 @@ round-trip, the injection refusal, a cross-customer 403 and the browser walkthro
 | `GoogleModelNotFoundError` / 404 | `gemini-2.5-flash` is closed to new users; set `GEMINI_MODEL=gemini-3.8-flash`. |
 | 429 / `RESOURCE_EXHAUSTED` / 503 "high demand" | Free-tier quota or load. The copilot falls back automatically; try later or enable billing. `GEMINI_RPM` paces calls. |
 | First run is slow | The embedding and PII models load once per process, and Phoenix creates its database on first start (up to about 1 minute). |
+| Streamlit shows "API offline" or "could not start" | Open **Technical details**; run `uvicorn src.api.app:app` on its own to see the startup error, or point `COPILOT_API_URL` at a running API. Use `streamlit run app.py --server.port 8502` if 8501 is busy. |
 | Port 6006 or 8000 in use | Stop the other process, or run with `--no-trace`, or `uvicorn … --port 8001`. |
 | `playwright` errors on the dashboard or web walkthrough | Run `playwright install chromium`. |
 | "--customer must look like CUST-123456" | Use a synthetic ID such as `CUST-000397` (see `data/sample_contacts.jsonl`). |
